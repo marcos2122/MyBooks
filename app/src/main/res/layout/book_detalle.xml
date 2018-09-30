@@ -46,15 +46,15 @@
     <TextView
         android:id="@+id/textViewFechaPublicacionCabecera"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="108dp"
         android:text="@string/Fecha"
         android:textAllCaps="true"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imageViewFotoLibro"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAutor" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewFecha"

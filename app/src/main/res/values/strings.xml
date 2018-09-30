@@ -3,7 +3,7 @@
     <string name="title_book_detail">Book Details</string>
     <string name="titulo">Título</string>
     <string name="autor">Autor</string>
-    <string name="Fecha">Fecha Publicación</string>
+    <string name="Fecha">Fecha</string>
     <string name="Descripcion">Descripción</string>
     <string name="DescripcionImagen">ImagenLibros</string>
 </resources>
