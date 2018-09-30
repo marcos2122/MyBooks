@@ -5,4 +5,5 @@
     <string name="autor">Autor</string>
     <string name="Fecha">Fecha Publicación</string>
     <string name="Descripcion">Descripción</string>
+    <string name="DescripcionImagen">ImagenLibros</string>
 </resources>
