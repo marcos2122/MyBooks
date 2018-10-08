@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import mjimeno.mybooks2.Adapters.BookAdapter;
 import mjimeno.mybooks2.Fragments.BookDetailFragment;
+import mjimeno.mybooks2.Fragments.BookListFragment;
 import mjimeno.mybooks2.Models.Book;
 import mjimeno.mybooks2.Models.Book.BookItem;
 //import mjimeno.mybooks2.Models.BookItem;
@@ -30,9 +31,10 @@ import java.util.List;
 /**
 
  */
-public class BookListActivity extends AppCompatActivity implements BookAdapter.OnItemClickListener { // implementa la interfaz declarada en bookadapter
+public class BookListActivity extends AppCompatActivity implements BookListFragment.EscuchaFragmento { // implementa la interfaz declarada en bookadapter
 
     private boolean mTwoPane;
+
 
 
     @Override
@@ -53,23 +55,28 @@ public class BookListActivity extends AppCompatActivity implements BookAdapter.O
             }
         });
 
-        if (findViewById(R.id.book_detail_container) != null) {
-            //Este layout container estará presente solo si es una tablet,establecemos un valor
-            // boleano a true que indica que se ejecuta la app en tablet
+        if  (findViewById(R.id.book_detail_container) != null) {
+             //Este layout container estará presente solo si es una tablet,establecemos un valor
+             // boleano a true que indica que se ejecuta la app en tablet
 
-            mTwoPane = true;
+             mTwoPane = true;
             //cargamos el fragmento detalle , el primero de la lista
             cargarFragmento(String.valueOf(Book.ITEMS.get(0).Identificador));
 
         }
-        View recyclerView = findViewById(R.id.book_list);
-        assert recyclerView != null;
-        prepararLista((RecyclerView) recyclerView);//recibe la lista estática ModeloArticulo.ITEMS y al propio fragmento como escucha
+        // agregar fragmento de lista
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.book_list_container, BookListFragment.crear())
+                .commit();
+       // View recyclerView = findViewById(R.id.book_list);
+       // assert recyclerView != null;
+      //  prepararLista((RecyclerView) recyclerView);//recibe la lista estática ModeloArticulo.ITEMS y al propio fragmento como escucha
     }
-    private void prepararLista(@NonNull RecyclerView recyclerView){// le pasamos el adaptador al recycler view y recibe la lista estática Book.ITEMS y la propia activity como escucha
-        recyclerView.setAdapter(new BookAdapter(Book.ITEMS,this));
+   // private void prepararLista(@NonNull RecyclerView recyclerView){// le pasamos el adaptador al recycler view y recibe la lista estática Book.ITEMS y la propia activity como escucha
+   //     recyclerView.setAdapter(new BookAdapter(Book.ITEMS,this));
 
-    }
+  //  }
    private void cargarFragmento(String id)
    {
        Bundle arguments = new Bundle();
@@ -80,10 +87,11 @@ public class BookListActivity extends AppCompatActivity implements BookAdapter.O
                .replace(R.id.book_detail_container, fragment)
                .commit();
    }
+   /*
     @Override
     public void onClick(BookAdapter.ViewHolder viewHolder, String id) {
 
-        if (mTwoPane) { //si es una tablet cargamos el fragment en su contenedor correspondiente
+       if (mTwoPane) { //si es una tablet cargamos el fragment en su contenedor correspondiente
             cargarFragmento(id);
         } else { // si es un movil con la clase intent abrimos la aplicación detalle y añadimos información sobre id al fragment
 
@@ -94,6 +102,19 @@ public class BookListActivity extends AppCompatActivity implements BookAdapter.O
         }
 
 
+    }
+*/
+    @Override
+    public void alSeleccionarItem(String idLibro) {
+        if (mTwoPane) { //si es una tablet cargamos el fragment en su contenedor correspondiente
+            cargarFragmento(idLibro);
+        } else { // si es un movil con la clase intent abrimos la aplicación detalle y añadimos información sobre id al fragment
+
+            // Toast.makeText(getApplicationContext(),idLibro,Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(this, BookDetailActivity.class);
+            intent.putExtra(BookDetailFragment.ARG_ITEM_ID,idLibro);
+            startActivity(intent);
+        }
     }
 }
 

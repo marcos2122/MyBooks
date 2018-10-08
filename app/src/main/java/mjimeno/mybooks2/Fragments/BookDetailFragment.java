@@ -1,7 +1,5 @@
 package mjimeno.mybooks2.Fragments;
 
-import android.app.Activity;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,12 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import mjimeno.mybooks2.Activities.BookDetailActivity;
-import mjimeno.mybooks2.Activities.BookListActivity;
 import mjimeno.mybooks2.Models.Book;
 import mjimeno.mybooks2.R;
 
@@ -26,7 +21,7 @@ public class BookDetailFragment extends Fragment {
     private Book.BookItem mItem; // declara una variable de tipo bookItem,libro al cual está ligado la UI
 
     //constructor
-    public BookDetailFragment() {
+    public BookDetailFragment(){
     }
 
     @Override
@@ -53,7 +48,7 @@ public class BookDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
        // Con el itemLibro se cargan los datos del libro en onCreateView() y setearlos en cada view
-        View rootView = inflater.inflate(R.layout.book_detalle, container, false);
+        View rootView = inflater.inflate(R.layout.book_detail_fragment, container, false);
 
         if (mItem != null) {
           ((TextView) rootView.findViewById(R.id.textViewAutor)).setText(mItem.Autor);

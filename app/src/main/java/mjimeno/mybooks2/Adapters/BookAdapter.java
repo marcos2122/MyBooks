@@ -22,15 +22,15 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
 {
 
     private  final List<Book.BookItem> mValues; // variable contenedora de la lista de objetos bookItem
-    private  OnItemClickListener escuchaClicksExterna; // declaracion de variable tipo OnClickListener,referencia a nuestra interfaz
+    private  OnItemClickListener escuchaClicksExterna; // declaracion de variable tipo OnClickListener,referencia a nuestra interface
 
     //constructor, le pasamos la lista
     public BookAdapter(List<Book.BookItem> items, OnItemClickListener escuchaClicksExterna){
         mValues = items;
         this.escuchaClicksExterna = escuchaClicksExterna;
     }
-   // Necesitamos hacer esto porque cuando nuestra MainActivity implementará esta interfaz,
-   // debemos decirle a onItemClickListener que esta actividad ha implementado la interfaz.
+   // Necesitamos hacer esto porque cuando nuestro Fragment implementará esta interface,
+   // debemos decirle a onItemClickListener que este Fragment ha implementado la interface.
 
     @Override
    // infla el layout (archivo xml) que representa a nuestros elementos, y devuelve una instancia de la clase ViewHolder

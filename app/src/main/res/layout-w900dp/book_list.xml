@@ -15,8 +15,7 @@
     <!--
     This layout is a two-pane layout for the Books
     master/detail flow.
-    
-    -->
+ Como estaba antes
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -35,5 +34,19 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3" />
+   -->
+    <FrameLayout
+        android:id="@+id/book_list_container"
+        android:layout_width="400dp"
+        android:layout_height="match_parent"
+         />
+    <FrameLayout
+        android:id="@+id/book_detail_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/book_list_container"
+        android:layout_weight="3" />
+
+
 
 </LinearLayout>
