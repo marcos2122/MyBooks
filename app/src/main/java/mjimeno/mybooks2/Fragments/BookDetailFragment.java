@@ -37,8 +37,8 @@ public class BookDetailFragment extends Fragment {
            //Activity activity = this.getActivity();
           // CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
 
-          if (savedInstanceState != null) getActivity().setTitle(mItem.Titulo); // pone el titulo del libro aunque haya un giro de pantalla
-          else getActivity().setTitle(mItem.Titulo);
+          if (savedInstanceState != null) getActivity().setTitle(mItem.title); // pone el titulo del libro aunque haya un giro de pantalla
+          else getActivity().setTitle(mItem.title);
           //  if (appBarLayout != null) appBarLayout.setTitle(mItem.Titulo);
 
         }
@@ -51,11 +51,11 @@ public class BookDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.book_detail_fragment, container, false);
 
         if (mItem != null) {
-          ((TextView) rootView.findViewById(R.id.textViewAutor)).setText(mItem.Autor);
-            ((TextView) rootView.findViewById(R.id.textViewFecha)).setText(mItem.FechaPublicacion);
-            ((TextView) rootView.findViewById(R.id.textViewDescripcion)).setText(mItem.Descripcion);
+          ((TextView) rootView.findViewById(R.id.textViewAutor)).setText(mItem.author);
+            ((TextView) rootView.findViewById(R.id.textViewFecha)).setText(mItem.publication_date);
+            ((TextView) rootView.findViewById(R.id.textViewDescripcion)).setText(mItem.description);
             Glide.with(this)
-                    .load(mItem.URL_Imagen)
+                    .load(mItem.url_image)
                     .thumbnail(0.1f)
                     .centerCrop()
                     .into((ImageView) rootView.findViewById(R.id.imageViewFotoLibro));

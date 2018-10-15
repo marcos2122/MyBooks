@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
+//import android.support.v4.app.
 
 import mjimeno.mybooks2.Fragments.BookDetailFragment;
 import mjimeno.mybooks2.Models.Book;
@@ -68,6 +68,7 @@ public class BookDetailActivity extends AppCompatActivity {
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.book_detail_container, fragment)
+                    .addToBackStack(null)
                     .commit();
 
         }

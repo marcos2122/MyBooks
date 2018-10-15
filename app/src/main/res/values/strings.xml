@@ -5,4 +5,35 @@
     <string name="autor">Autor</string>
     <string name="Fecha">Fecha Publicación</string>
     <string name="Descripcion">Descripción</string>
+
+    <string name="title_activity_login">Iniciar Sesión</string>
+<!-- Pantalla Inicio-->
+    <string name="title_activity_presentation">Bienvenido a Bookshop Jimeno</string>
+    <string name="dummy_button">Entrar</string>
+    <string name="dummy_content">Bookshop \n
+        Jimeno</string>
+
+  <!-- Pantalla Login
+  -->
+
+    <string name="hintEmail">E-mail</string>
+    <string name="hintPassword">Contraseña</string>
+    <string name="botonIniciarSesion">Iniciar sesión</string>
+    <string name="botonRegistrar">Registrarse</string>
+    <string name="labelActualizarPassword">Actualizar Contraseña</string>
+    <string name="botonIniciarSesionFace">Iniciar sesión con Facebook</string>
+    <string name="botonIniciarSesionGoogle">Iniciar sesión con Google</string>
+    <string name="barraDivisora">O</string>
+    <string name="ErrorEmail">No es un correo Válido</string>
+    <string name="ErrorPassw">La contraseña debe tener más de 6 caracteres</string>
+    <string name="ErrorEmail2">Se debe ingresar un email</string>
+    <string name="ErrorPassw2">Falta ingresar la contraseña</string>
+    <string name="ErrorInicioSesion">Contraseña/email incorrectos o error de Servidor</string>
+    <string name="ErrorRegistro">La cuenta ya existe</string>
+    <string name="ProgresDialogLogin">Realizando proceso de autentificación...</string>
+    <string name="ProgresDialogRegistro">Realizando proceso de Registro de Usuario...</string>
+
+
+
+
 </resources>

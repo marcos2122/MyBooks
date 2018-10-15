@@ -1,11 +1,9 @@
 package mjimeno.mybooks2.Models;
-import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  Modelo de datos para los libros que  inflarán  la lista
@@ -22,23 +20,30 @@ public class Book {
      * Mapa simulador de búsquedas de libros por id
      */
     public static final Map<String, BookItem> MAPA_ITEMS = new HashMap<String, BookItem>();
+/*
     private static int generarId() {
         return id=id+1;
     }
+
     static{
         //Rellenar libros de ejemplos
-        agregarLibros(new BookItem(generarId(),"El Señor de los Anillos","J.R.R. Tolkien"
-                ,"29/07/1956","Su historia se desarrolla en la Tercera Edad del Sol de la Tierra Media, un lugar ficticio poblado por hombres y otras razas antropomorfas como los hobbits, los elfos o los enanos, así como por muchas otras criaturas reales y fantásticas"
+        agregarLibros(new BookItem(generarId(),"J.R.R. Tolkien","Su historia se desarrolla en la Tercera Edad del Sol de la Tierra Media, un lugar ficticio poblado por hombres y otras razas antropomorfas como los hobbits, los elfos o los enanos, así como por muchas otras criaturas reales y fantásticas"
+                ,"29/07/1956","El Señor de los Anillos"
                 ,"http://t3.gstatic.com/images?q=tbn:ANd9GcQcbgn26UtyF_Di0Z05LyOzv4g3qGMz4QEEyR38vozUQ380JP2m"));
-        agregarLibros(new BookItem(generarId(),"El Código da Vinci ","Dan Brown"
-                ,"29/04/2003","El libro narra los intentos de Robert Langdon, Profesor de Iconografía Religiosa de la Universidad Harvard, para resolver el misterioso asesinato de Jacques Saunière ocurrido en el Museo del Louvre en París"
+
+
+        agregarLibros(new BookItem(generarId(),"Dan Brown ","El libro narra los intentos de Robert Langdon, Profesor de Iconografía Religiosa de la Universidad Harvard, para resolver el misterioso asesinato de Jacques Saunière ocurrido en el Museo del Louvre en París"
+                ,"29/04/2003","El Código da Vinci"
                 ,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScg-2NuBUFlQ2oiPmCitDzjQwVOgbw1tbqRTlwnYceJsgHp7JX3g"));
-        agregarLibros(new BookItem(generarId(),"El Alquimista ","Paulo Coelho"
-                ,"29/04/1988","El libro trata sobre los sueños y los medios que utilizamos para alcanzarlos, sobre el azar en nuestra vida y las señales que se presentan a lo largo de esta."
+
+        agregarLibros(new BookItem(generarId(),"Paulo Coelho ","El libro trata sobre los sueños y los medios que utilizamos para alcanzarlos, sobre el azar en nuestra vida y las señales que se presentan a lo largo de esta."
+                ,"29/04/1988","El Alquimista"
                 ,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD21letDykfl-zeo_8c_3E6NORhgP49JYQ4jcrPbbrZHZMH0y4aQ"));
-        agregarLibros(new BookItem(generarId(),"Crepúsculo  ","Stephenie Meyer"
-                ,"20/11/2009","Cuando Isabella Swan se muda a Forks, una pequeña localidad del estado de Washington en la que nunca deja de llover, piensa que es lo más aburrido que le podía haber ocurrido en la vida."
+
+        agregarLibros(new BookItem(generarId(),"Stephenie Meyer  ","Cuando Isabella Swan se muda a Forks, una pequeña localidad del estado de Washington en la que nunca deja de llover, piensa que es lo más aburrido que le podía haber ocurrido en la vida."
+                ,"20/11/2009","Crepúsculo"
                 ,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVyPXlhFcu6JpfeODHlVfqqXKdrh1BPp_1MpdghkEgmhFnBXLxUQ"));
+
     }
 
     @NonNull
@@ -51,23 +56,28 @@ public class Book {
      //   La lista de libros estática ITEMS actuará como origen de datos para el adaptador de la lista que se creará.
     //    El mapa MAPA_ITEMS será el índice de búsqueda del cuál se obtendrá los datos a través de un identificador.
     }
-
+*/
     public static class BookItem {
         //creamos la clase book con sus atributos y su constructor
-        public final int Identificador;
-        public final String Titulo;
-        public final String Autor;
-        public final String FechaPublicacion;
-        public final String Descripcion;
-        public final String URL_Imagen;
+        public   int Identificador;
+        public   String author;
+        public   String description;
+        public   String publication_date;
+        public   String title;
+        public   String url_image;
 
-        public BookItem(int identificador, String titulo, String autor, String fechaPublicacion, String descripcion, String URL_Imagen) {
-            Identificador = identificador;
-            Titulo = titulo;
-            Autor = autor;
-            FechaPublicacion = fechaPublicacion;
-            Descripcion = descripcion;
-            this.URL_Imagen = URL_Imagen;
+        public BookItem(){}
+
+
+
+        public BookItem(int identificador, String autor, String descripcion, String fechaPublicacion, String titulo, String URL_Imagen) {
+            this.Identificador = identificador;
+            this.author = autor;
+            this.description=descripcion;
+            this.publication_date = fechaPublicacion;
+            this.title = titulo;
+            this.url_image = URL_Imagen;
         }
+
     }
 }

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "594523094328",
+    "firebase_url": "https://mybooks-71c4f.firebaseio.com",
+    "project_id": "mybooks-71c4f",
+    "storage_bucket": "mybooks-71c4f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594523094328:android:40848e9247d74c43",
+        "android_client_info": {
+          "package_name": "mjimeno.mybooks2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594523094328-1248dt6u8pk18nelf28ojdmeb1gg386n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUwkDAV7U89KR3nUquvZm0Yb_7JrdU8Xg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

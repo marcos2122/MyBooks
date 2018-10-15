@@ -1,20 +1,13 @@
 package mjimeno.mybooks2.Adapters;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 import java.util.List;
-import mjimeno.mybooks2.Activities.BookListActivity;
+
 import mjimeno.mybooks2.Models.Book;
 import mjimeno.mybooks2.R;
 
@@ -62,8 +55,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
         //enlaza nuestro datos con cada ViewHolder
         holder.mIdView.setText(String.valueOf(mValues.get(position).Identificador));
         holder.mId2View.setText(String.valueOf(mValues.get(position).Identificador));
-        holder.mTitulo.setText(mValues.get(position).Titulo);
-        holder.mAutor.setText(mValues.get(position).Autor);
+        holder.mTitulo.setText(mValues.get(position).title);
+        holder.mAutor.setText(mValues.get(position).author);
 
     }
 
@@ -85,7 +78,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
 */
     private String obtenerIdLibro(int posicion) {
         if (posicion != RecyclerView.NO_POSITION) {
-            return String.valueOf(mValues.get(posicion).Identificador);
+           return String.valueOf(getItemViewType(posicion));
+
+          //  return String.valueOf(mValues.get(posicion).Identificador);
         } else {
             return null;
         }
