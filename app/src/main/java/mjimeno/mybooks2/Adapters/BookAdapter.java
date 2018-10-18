@@ -32,7 +32,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
         int pos = viewType;//obtiene posicion de la vista
         // le sumo uno porque empieza de 0 al ser tipo vector, para ir acorde con la numeración de los libros
         //prefiero que empieze por uno
-        if (par_Impar(pos+1)) {
+        if (par_Impar(pos)) {
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.book_list_par, parent, false);
 
@@ -54,7 +54,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
     public void onBindViewHolder(BookAdapter.ViewHolder holder, int position) {
         //enlaza nuestro datos con cada ViewHolder
         holder.mIdView.setText(String.valueOf(mValues.get(position).Identificador));
-        holder.mId2View.setText(String.valueOf(mValues.get(position).Identificador));
+
         holder.mTitulo.setText(mValues.get(position).title);
         holder.mAutor.setText(mValues.get(position).author);
 
@@ -78,9 +78,9 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
 */
     private String obtenerIdLibro(int posicion) {
         if (posicion != RecyclerView.NO_POSITION) {
-           return String.valueOf(getItemViewType(posicion));
+           //return String.valueOf(getItemViewType(posicion));
 
-          //  return String.valueOf(mValues.get(posicion).Identificador);
+            return String.valueOf(mValues.get(posicion).Identificador);
         } else {
             return null;
         }
@@ -93,7 +93,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
         final TextView mIdView;
         final TextView mTitulo;
         final TextView mAutor;
-        final TextView mId2View;
+
 
 
         public ViewHolder(View view)
@@ -101,7 +101,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
             super(view);
             view.setClickable(true);
             mIdView = (TextView) view.findViewById(R.id.textViewIdentificador);
-            mId2View = (TextView) view.findViewById(R.id.textViewIdentificador2) ;
+
             mTitulo = (TextView) view.findViewById(R.id.textViewTitulo);
             mAutor =(TextView) view.findViewById(R.id.textViewAutor);
 

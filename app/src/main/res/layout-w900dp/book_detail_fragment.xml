@@ -31,15 +31,18 @@
 
     <TextView
         android:id="@+id/textViewAutor"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/berkshire_swash"
-        android:textAlignment="center"
+        android:text="erererewrewr"
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/imageViewFotoLibro"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTituloCabecera3" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewFechaPublicacionCabecera"

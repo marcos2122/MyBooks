@@ -1,6 +1,5 @@
 package mjimeno.mybooks2.Activities;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +12,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,10 +31,11 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout contenedorPassword;
     private Button botonIniciarSesion;
     private Button botonRegistro;
+    private ProgressBar progressBar;
     // declaramos un oyente para obtener una devolución de llamada cada vez que cambie el estado del token subyacente.
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
-    private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,9 @@ public class LoginActivity extends AppCompatActivity {
         contenedorPassword=(TextInputLayout)findViewById(R.id.textInputLayout2);
         botonIniciarSesion=(Button) findViewById(R.id.buttonIniciarSesion);
         botonRegistro=(Button)findViewById(R.id.buttonRegistrar);
-        progressDialog = new ProgressDialog(this);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
+
         botonRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,8 +70,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user= firebaseAuth.getCurrentUser();
                 if (user != null){
-                    Intent intent = new Intent(getApplicationContext(),BookListActivity.class);
+                    Intent intent = new Intent(getApplicationContext(),BookListActivity.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);
+                    finish();
                 }else{
                     Log.d("SESION","sesión cerrada");
 
@@ -90,9 +95,8 @@ public class LoginActivity extends AppCompatActivity {
     {
         //metodo para registrar usuario segun el resultado de la tarea,abre otra actividad
         //en caso contrario capturo la excepción y muestro al usuario
-        progressDialog.setMessage(getResources().getString(R.string.ProgresDialogRegistro));
-        progressDialog.show();
 
+        progressBar.setVisibility(View.VISIBLE);
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -107,8 +111,8 @@ public class LoginActivity extends AppCompatActivity {
                           Toast.makeText(getApplicationContext(),getResources().getString(R.string.ErrorRegistro),
                                   Toast.LENGTH_SHORT).show();
                       }
-                      progressDialog.dismiss();
-                      progressDialog=null;
+                        progressBar.setVisibility(View.INVISIBLE);
+
                     }
                 });
     }
@@ -116,24 +120,24 @@ public class LoginActivity extends AppCompatActivity {
     private void AutenticarUsuarioFirebase(String email, String password){
         //metodo para autenticar usuario segun el resultado de la tarea,abre otra actividad
         //en caso contrario capturo la excepción y muestro al usuario
-        progressDialog.setMessage(getResources().getString(R.string.ProgresDialogLogin));
-        progressDialog.show();
+        progressBar.setVisibility(View.VISIBLE);
      FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
              .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                  @Override
                  public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
                         FirebaseUser user = mAuth.getCurrentUser();
-                        Toast.makeText(getApplicationContext(),"Sesion Iniciada por " + user.getDisplayName(),Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(getApplicationContext(),BookListActivity.class);
+                        Toast.makeText(getApplicationContext(),"Sesion Iniciada por " + user.getEmail(),Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getApplicationContext(),BookListActivity.class)
+                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         finish();
                     }else{
                         Log.d("ERROR_SESION",task.getException().getMessage());
                         Toast.makeText(getApplicationContext(),getResources().getString(R.string.ErrorInicioSesion),Toast.LENGTH_LONG).show();
                     }
-                    progressDialog.dismiss();
-                    progressDialog=null;
+                     progressBar.setVisibility(View.INVISIBLE);
+
                  }
              });
 

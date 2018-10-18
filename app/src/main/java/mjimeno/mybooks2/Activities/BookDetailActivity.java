@@ -9,13 +9,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-//import android.support.v4.app.
 
 import mjimeno.mybooks2.Fragments.BookDetailFragment;
 import mjimeno.mybooks2.Models.Book;
 import mjimeno.mybooks2.R;
 
 import static mjimeno.mybooks2.Fragments.BookDetailFragment.ARG_ITEM_ID;
+
+//import android.support.v4.app.
 
 /**
  * An activity representing a single Book detail screen. This
@@ -59,7 +60,7 @@ public class BookDetailActivity extends AppCompatActivity {
         //
         if (savedInstanceState == null) {
           //Crea un objeto bundle,captura los argumentos y añade un fragmento a la actividad
-           // Toast.makeText(getApplicationContext(),"ES nulo",Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(),"ES nulo",Toast.LENGTH_LONG).show();
 
             Bundle arguments = new Bundle();
             arguments.putString(ARG_ITEM_ID,
@@ -68,8 +69,9 @@ public class BookDetailActivity extends AppCompatActivity {
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.book_detail_container, fragment)
-                    .addToBackStack(null)
+                    //.addToBackStack(null)
                     .commit();
+
 
         }
 

@@ -1,21 +1,30 @@
 package mjimeno.mybooks2.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
+import mjimeno.mybooks2.Fragments.AreaUserFragment;
 import mjimeno.mybooks2.Fragments.BookDetailFragment;
 import mjimeno.mybooks2.Fragments.BookListFragment;
 import mjimeno.mybooks2.R;
@@ -27,38 +36,16 @@ import mjimeno.mybooks2.R;
 /**
 
  */
-public class BookListActivity extends AppCompatActivity implements BookListFragment.EscuchaFragmento { // implementa la interfaz declarada en bookadapter
+public class BookListActivity extends AppCompatActivity implements BookListFragment.EscuchaFragmento,
+        NavigationView.OnNavigationItemSelectedListener{ // implementa la interfaz declarada en bookadapter
 
     private boolean mTwoPane;
-    Button boton;
-
-
-    @Override
-    public void onBackPressed() {
-
-        //codigo adicional
-
-       // super.onBackPressed();
-        int count = getFragmentManager().getBackStackEntryCount();
-        Log.d("CUANTOS",String.valueOf(count));
-
-       if (count == 0) {
-           // super.onBackPressed();
-            this.finish();}
-            //additional code
-     //   } else {
-     //       Toast.makeText(getApplicationContext(),count,Toast.LENGTH_LONG).show();
-     //       getFragmentManager().popBackStack();
-     //   }
-
-
-    }
+    private TextView usuario,email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list);
-        boton = (Button)findViewById(R.id.button2);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -73,6 +60,20 @@ public class BookListActivity extends AppCompatActivity implements BookListFragm
             }
         });
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+
+        recuperarDatosUsuario();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
+
+
         if  (findViewById(R.id.book_detail_container) != null) {
              //Este layout container estará presente solo si es una tablet,establecemos un valor
              // boleano a true que indica que se ejecuta la app en tablet
@@ -83,36 +84,12 @@ public class BookListActivity extends AppCompatActivity implements BookListFragm
             cargarFragmento(String.valueOf(0));
 
         }
-        boton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"hola",Toast.LENGTH_LONG).show();
-              /*
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-                UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                        .setDisplayName("Marc Jimeno")
-                       // .setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
-                        .build();
 
-                user.updateProfile(profileUpdates)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Log.d("USER", "User profile updated.");
-                                }
-                            }
-                        });
-                */
-                signOut();
-                //FirebaseAuth.getInstance().signOut();
-            }
-        });
         // agregar fragmento de lista
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.book_list_container, BookListFragment.crear())
+                .replace(R.id.book_list_container, new BookListFragment())
                // .addToBackStack(null)
                 .commit();
        // View recyclerView = findViewById(R.id.book_list);
@@ -125,6 +102,8 @@ public class BookListActivity extends AppCompatActivity implements BookListFragm
   //  }
 
   private void signOut() {
+        //FirebaseUI es una biblioteca creada a partir del SDK de Firebase Authentication que proporciona flujos directos de IU para usar en la app.
+        //FirebaseUI proporciona el método para salir de Firebase Authentication
 
       AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
           @Override
@@ -142,9 +121,26 @@ public class BookListActivity extends AppCompatActivity implements BookListFragm
        fragment.setArguments(arguments);
        getSupportFragmentManager().beginTransaction()
                .replace(R.id.book_detail_container, fragment)
-               .addToBackStack(null)
+              // .addToBackStack(null)
                .commit();
    }
+   private void recuperarDatosUsuario(){
+
+        //Recuperar información de usuario usando los metodos de intancia de FirebaseUser
+       NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+       View view = navigationView.getHeaderView(0);
+       usuario = (TextView)view.findViewById(R.id.TextViewUsuario);
+       email = (TextView) view.findViewById(R.id.TextViewEmail);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null)
+        {
+            usuario.setText(user.getDisplayName());
+            email.setText(user.getEmail());
+
+        }
+
+    }
    /*
     @Override
     public void onClick(BookAdapter.ViewHolder viewHolder, String id) {
@@ -173,6 +169,90 @@ public class BookListActivity extends AppCompatActivity implements BookListFragm
             intent.putExtra(BookDetailFragment.ARG_ITEM_ID,idLibro);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //infla menu y añade los items al action bar
+        getMenuInflater().inflate(R.menu.main,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //manejar los items del action bar
+        int id = item.getItemId();
+        if (id == R.id.action_closeSesion){
+            AlertDialog alertDialog = new AlertDialog.Builder(BookListActivity.this).create();
+            alertDialog.setTitle(getResources().getString(R.string.action_closeSesion));
+            alertDialog.setMessage(getResources().getString(R.string.action_pregunta_closeSesion));
+
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getResources().getString(R.string.SI),
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            dialog.dismiss();
+                            signOut();
+                        }
+                    });
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getString(R.string.NO),
+                    new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            dialog.dismiss();
+                        }
+                    });
+
+            alertDialog.show();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        //manejar los clicks de los items del navigator view
+        int id = item.getItemId();
+
+        if (id == R.id.nav_listarLibros) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.book_list_container, new BookListFragment())
+                    // .addToBackStack(null)
+                    .commit();
+
+
+        } else if (id == R.id.nav_gallery) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.book_list_container, new AreaUserFragment())
+                    // .addToBackStack(null)
+                    .commit();
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
 

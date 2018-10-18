@@ -1,14 +1,14 @@
 <resources>
-    <string name="app_name">PAC1</string>
+    <string name="app_name">Bookshop Jimeno</string>
     <string name="title_book_detail">Book Details</string>
     <string name="titulo">Título</string>
     <string name="autor">Autor</string>
     <string name="Fecha">Fecha Publicación</string>
     <string name="Descripcion">Descripción</string>
-
+    <string name="Clave">ID.LIBRO</string>
     <string name="title_activity_login">Iniciar Sesión</string>
 <!-- Pantalla Inicio-->
-    <string name="title_activity_presentation">Bienvenido a Bookshop Jimeno</string>
+    <string name="title_activity_presentation">Bookshop Jimeno</string>
     <string name="dummy_button">Entrar</string>
     <string name="dummy_content">Bookshop \n
         Jimeno</string>
@@ -33,7 +33,16 @@
     <string name="ProgresDialogLogin">Realizando proceso de autentificación...</string>
     <string name="ProgresDialogRegistro">Realizando proceso de Registro de Usuario...</string>
 
-
+<!-- Navigation drawer-->
+   <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_closeSesion">Cerrar Sesión</string>
+    <string name="action_pregunta_closeSesion">Seguro que desea cerrar la sesión?</string>
+    <string name="listar_libros">Listar Libros</string>
+    <string name="SI">SI</string>
+    <string name="NO">NO</string>
 
 
 </resources>
