@@ -13,6 +13,8 @@ import mjimeno.mybooks2.R;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
 {
+   // View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.book_list_par,parent,false);
+    //    return new BookAdapterFirebase.BooksHolder(view);
 
     private  final List<Book.BookItem> mValues; // variable contenedora de la lista de objetos bookItem
     private  OnItemClickListener escuchaClicksExterna; // declaracion de variable tipo OnClickListener,referencia a nuestra interface
@@ -53,7 +55,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
     @Override
     public void onBindViewHolder(BookAdapter.ViewHolder holder, int position) {
         //enlaza nuestro datos con cada ViewHolder
-        holder.mIdView.setText(String.valueOf(mValues.get(position).Identificador));
+        holder.mIdView.setText(String.valueOf(mValues.get(position).identificador));
 
         holder.mTitulo.setText(mValues.get(position).title);
         holder.mAutor.setText(mValues.get(position).author);
@@ -80,7 +82,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
         if (posicion != RecyclerView.NO_POSITION) {
            //return String.valueOf(getItemViewType(posicion));
 
-            return String.valueOf(mValues.get(posicion).Identificador);
+            return String.valueOf(mValues.get(posicion).identificador);
         } else {
             return null;
         }

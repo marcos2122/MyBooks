@@ -59,25 +59,74 @@ public class Book {
 */
     public static class BookItem {
         //creamos la clase book con sus atributos y su constructor
-        public   int Identificador;
+        public   int identificador;
         public   String author;
         public   String description;
         public   String publication_date;
         public   String title;
         public   String url_image;
 
-        public BookItem(){}
+
+    public BookItem(){}
+
+    public BookItem(int identificador, String autor, String descripcion, String fechaPublicacion, String titulo, String URL_Imagen) {
+        this.identificador = identificador;
+        this.author = autor;
+        this.description=descripcion;
+        this.publication_date = fechaPublicacion;
+        this.title = titulo;
+        this.url_image = URL_Imagen;
+    }
+
+    public int getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(int identificador) {
+        this.identificador = identificador;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPublication_date() {
+        return publication_date;
+    }
+
+    public void setPublication_date(String publication_date) {
+        this.publication_date = publication_date;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getUrl_image() {
+        return url_image;
+    }
+
+    public void setUrl_image(String url_image) {
+        this.url_image = url_image;
+    }
 
 
-
-        public BookItem(int identificador, String autor, String descripcion, String fechaPublicacion, String titulo, String URL_Imagen) {
-            this.Identificador = identificador;
-            this.author = autor;
-            this.description=descripcion;
-            this.publication_date = fechaPublicacion;
-            this.title = titulo;
-            this.url_image = URL_Imagen;
-        }
 
     }
 }

@@ -84,7 +84,7 @@ public class BookListFragment extends Fragment implements BookAdapter.OnItemClic
                 //   }
                 for (int i = 0; i < bookItems.size(); i++) {
                     //Log.i("Clave",bookItems.get(i))
-                    bookItems.get(i).Identificador = i;
+                    bookItems.get(i).identificador = i;
                     ITEMS.add(bookItems.get(i));
                     MAPA_ITEMS.put(String.valueOf(i), bookItems.get(i));
 

@@ -26,7 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import mjimeno.mybooks2.Fragments.AreaUserFragment;
 import mjimeno.mybooks2.Fragments.BookDetailFragment;
-import mjimeno.mybooks2.Fragments.BookListFragment;
+import mjimeno.mybooks2.Fragments.BookListFragmentFirebase;
 import mjimeno.mybooks2.R;
 
 //import com.google.firebase.auth.AuthUI;
@@ -36,7 +36,9 @@ import mjimeno.mybooks2.R;
 /**
 
  */
-public class BookListActivity extends AppCompatActivity implements BookListFragment.EscuchaFragmento,
+public class BookListActivity extends AppCompatActivity
+        implements
+        //BookListFragment.EscuchaFragmento,
         NavigationView.OnNavigationItemSelectedListener{ // implementa la interfaz declarada en bookadapter
 
     private boolean mTwoPane;
@@ -65,14 +67,14 @@ public class BookListActivity extends AppCompatActivity implements BookListFragm
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        //https://es.stackoverflow.com/questions/162173/como-modificar-el-actionbar-de-navigation-drawer-activity
 
 
-        recuperarDatosUsuario();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view); //referenciamos el navigation View
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
 
+        recuperarDatosUsuario();
 
         if  (findViewById(R.id.book_detail_container) != null) {
              //Este layout container estará presente solo si es una tablet,establecemos un valor
@@ -81,7 +83,7 @@ public class BookListActivity extends AppCompatActivity implements BookListFragm
              mTwoPane = true;
             //cargamos el fragmento detalle , el primero de la lista
             //cargarFragmento(String.valueOf(Book.ITEMS.get(0).Identificador));
-            cargarFragmento(String.valueOf(0));
+         //   cargarFragmento(String.valueOf(0));
 
         }
 
@@ -89,7 +91,7 @@ public class BookListActivity extends AppCompatActivity implements BookListFragm
         // agregar fragmento de lista
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.book_list_container, new BookListFragment())
+                .replace(R.id.book_list_container, new BookListFragmentFirebase()) // booklistFragment
                // .addToBackStack(null)
                 .commit();
        // View recyclerView = findViewById(R.id.book_list);
@@ -158,6 +160,7 @@ public class BookListActivity extends AppCompatActivity implements BookListFragm
 
     }
 */
+   /*
     @Override
     public void alSeleccionarItem(String idLibro) {
         if (mTwoPane) { //si es una tablet cargamos el fragment en su contenedor correspondiente
@@ -170,7 +173,7 @@ public class BookListActivity extends AppCompatActivity implements BookListFragm
             startActivity(intent);
         }
     }
-
+*/
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -228,7 +231,7 @@ public class BookListActivity extends AppCompatActivity implements BookListFragm
         if (id == R.id.nav_listarLibros) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.book_list_container, new BookListFragment())
+                    .replace(R.id.book_list_container, new BookListFragmentFirebase())
                     // .addToBackStack(null)
                     .commit();
 
