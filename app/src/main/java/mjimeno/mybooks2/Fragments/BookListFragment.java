@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,7 +43,7 @@ public class BookListFragment extends Fragment implements BookAdapter.OnItemClic
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Book.BookItem.deleteAll(Book.BookItem.class);
         //detectarEstadoconexion();
 
 
@@ -62,10 +63,38 @@ public class BookListFragment extends Fragment implements BookAdapter.OnItemClic
 
         //  prepararLista((RecyclerView) recyclerView);//recibe la lista estática ModeloArticulo.ITEMS y al propio fragmento como escucha
 
-        adapter = new BookAdapter(ITEMS, this);
+       // adapter = new BookAdapter(ITEMS, this);
         ((RecyclerView) recyclerView).setAdapter(adapter);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(BOOK_REFERENCE);
+
+        myRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -141,9 +170,9 @@ public class BookListFragment extends Fragment implements BookAdapter.OnItemClic
         });
 
     }
-    private void prepararLista(@NonNull RecyclerView recyclerView) {// le pasamos el adaptador al recycler view y recibe la lista estática Book.ITEMS y la propia activity como escucha
-        recyclerView.setAdapter(new BookAdapter(ITEMS, this));
-    }
+   // private void prepararLista(@NonNull RecyclerView recyclerView) {// le pasamos el adaptador al recycler view y recibe la lista estática Book.ITEMS y la propia activity como escucha
+   //     recyclerView.setAdapter(new BookAdapter(ITEMS, this));
+   // }
     //private void preparar()
 
 

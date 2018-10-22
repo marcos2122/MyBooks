@@ -60,9 +60,10 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
+                                      <entry key="assetType" value="IMAGE" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="C:\Users\marc\Desktop\EjerciciosAndroid\libro_icon.png" />
-                                      <entry key="outputName" value="ic_launcher_round" />
+                                      <entry key="imageAsset" value="C:\Users\marc\Desktop\EjerciciosAndroid\clouddown_icon-icons.com_54405.png" />
+                                      <entry key="outputName" value="icono_listar_firebase" />
                                     </map>
                                   </option>
                                 </PersistentState>

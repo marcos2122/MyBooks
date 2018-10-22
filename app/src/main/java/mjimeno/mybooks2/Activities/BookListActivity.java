@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -23,12 +24,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.orm.SugarDb;
 
-import mjimeno.mybooks2.Fragments.AreaUserFragment;
 import mjimeno.mybooks2.Fragments.BookDetailFragment;
 import mjimeno.mybooks2.Fragments.BookListFragmentFirebase;
+import mjimeno.mybooks2.Fragments.BookListFragmentLocal;
 import mjimeno.mybooks2.R;
-
 //import com.google.firebase.auth.AuthUI;
 //import mjimeno.mybooks2.Models.BookItem;
 //import mjimeno.mybooks2.dummy.DummyContent;
@@ -41,7 +42,7 @@ public class BookListActivity extends AppCompatActivity
         //BookListFragment.EscuchaFragmento,
         NavigationView.OnNavigationItemSelectedListener{ // implementa la interfaz declarada en bookadapter
 
-    private boolean mTwoPane;
+    public static boolean mTwoPane;
     private TextView usuario,email;
 
     @Override
@@ -74,7 +75,11 @@ public class BookListActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
 
-        recuperarDatosUsuario();
+        recuperarDatosUsuario(); // metodo que recupera los datos
+
+        SugarDb db = new SugarDb(this);
+        db.onCreate(db.getDB()); //crear base de datos
+
 
         if  (findViewById(R.id.book_detail_container) != null) {
              //Este layout container estará presente solo si es una tablet,establecemos un valor
@@ -126,6 +131,15 @@ public class BookListActivity extends AppCompatActivity
               // .addToBackStack(null)
                .commit();
    }
+
+   public void cargarFragmentoBBDD(){
+       BookListFragmentLocal fragment = new BookListFragmentLocal();
+       getSupportFragmentManager().beginTransaction()
+               .replace(R.id.book_list_container, fragment)
+               // .addToBackStack(null)
+               .commit();
+   }
+
    private void recuperarDatosUsuario(){
 
         //Recuperar información de usuario usando los metodos de intancia de FirebaseUser
@@ -226,30 +240,45 @@ public class BookListActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         //manejar los clicks de los items del navigator view
-        int id = item.getItemId();
+        boolean fragmentTransaction = false;
+        Fragment fragment = null;
 
-        if (id == R.id.nav_listarLibros) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.book_list_container, new BookListFragmentFirebase())
-                    // .addToBackStack(null)
+        switch (item.getItemId()){
+            case  R.id.nav_listarLibros:
+                fragment = new BookListFragmentFirebase();
+                fragmentTransaction =true;
+                break;
+
+            case R.id.nav_listarLibrosBD:
+                fragment = new BookListFragmentLocal();
+                fragmentTransaction = true;
+
+                break;
+
+            case R.id.nav_slideshow:
+              //  Book.BookItem.deleteAll(Book.BookItem.class);
+
+                break;
+
+            case R.id.nav_manage:
+               // List<Book.BookItem> n = Book.BookItem.listAll((Book.BookItem.class));
+
+               // int a = n.size();
+               // Toast.makeText(getApplicationContext(),String.valueOf(a),Toast.LENGTH_LONG).show();
+
+                break;
+
+            case  R.id.nav_share:
+                break;
+
+            case  R.id.nav_send:
+                break;
+        }
+
+        if (fragmentTransaction){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.book_list_container,fragment)
                     .commit();
-
-
-        } else if (id == R.id.nav_gallery) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.book_list_container, new AreaUserFragment())
-                    // .addToBackStack(null)
-                    .commit();
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 

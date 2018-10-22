@@ -33,6 +33,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:16.0.2'
     implementation 'com.firebaseui:firebase-ui-auth:4.2.0'
     implementation 'com.firebaseui:firebase-ui-database:4.2.0'
+    implementation 'com.github.satyan:sugar:1.5'
 
 
 

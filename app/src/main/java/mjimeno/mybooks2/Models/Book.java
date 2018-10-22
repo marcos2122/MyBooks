@@ -1,5 +1,9 @@
 package mjimeno.mybooks2.Models;
 
+import com.orm.SugarRecord;
+import com.orm.dsl.Column;
+import com.orm.dsl.Table;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,8 +61,10 @@ public class Book {
     //    El mapa MAPA_ITEMS será el índice de búsqueda del cuál se obtendrá los datos a través de un identificador.
     }
 */
-    public static class BookItem {
+@Table (name="Books")
+    public static class BookItem extends SugarRecord {
         //creamos la clase book con sus atributos y su constructor
+@Column(name="Books")
         public   int identificador;
         public   String author;
         public   String description;

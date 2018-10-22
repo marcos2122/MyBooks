@@ -40,9 +40,17 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_closeSesion">Cerrar Sesión</string>
     <string name="action_pregunta_closeSesion">Seguro que desea cerrar la sesión?</string>
-    <string name="listar_libros">Listar Libros</string>
+    <string name="listar_libros">Listado Libros Servidor</string>
+
+    <string name="listar_libros_bd">Listado Libros Local</string>
     <string name="SI">SI</string>
     <string name="NO">NO</string>
+
+
+    <!-- Fragment firebase-->
+
+    <string name="Error_Servidor">Error en el servidor,se cargaran los datos de tu base de datos local</string>
+    <string name="Error_Red">No hay conexión de red,se cargaran los datos de tu base de datos local</string>
 
 
 </resources>
