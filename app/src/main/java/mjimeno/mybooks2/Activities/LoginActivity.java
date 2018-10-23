@@ -31,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout contenedorPassword;
     private Button botonIniciarSesion;
     private Button botonRegistro;
+    private Button botonFacebook;
+    private Button botonGoogle;
     private ProgressBar progressBar;
     // declaramos un oyente para obtener una devolución de llamada cada vez que cambie el estado del token subyacente.
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -46,8 +48,23 @@ public class LoginActivity extends AppCompatActivity {
         contenedorPassword=(TextInputLayout)findViewById(R.id.textInputLayout2);
         botonIniciarSesion=(Button) findViewById(R.id.buttonIniciarSesion);
         botonRegistro=(Button)findViewById(R.id.buttonRegistrar);
+        botonFacebook=(Button)findViewById(R.id.buttonFace);
+        botonGoogle = (Button)findViewById(R.id.buttonGoogle);
+
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+        botonGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Por Hacer",Toast.LENGTH_LONG).show();
+            }
+        });
+        botonFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Por Hacer",Toast.LENGTH_LONG).show();
+            }
+        });
 
         botonRegistro.setOnClickListener(new View.OnClickListener() {
             @Override

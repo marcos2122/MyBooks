@@ -137,10 +137,7 @@ private FirebaseRecyclerOptions<Book.BookItem> options;
             public void onClick(View v) {
                 //por hacer
                 Book.BookItem m = MAPA_ITEMS.get(String.valueOf(position));
-
-                String a = model.getAuthor();
-                String t = m.getTitle();
-                Toast.makeText(v.getContext(),a,Toast.LENGTH_LONG).show();
+                Toast.makeText(v.getContext(),String.valueOf(model.author),Toast.LENGTH_LONG).show();
 
 
 

@@ -13,7 +13,6 @@ import java.util.Map;
  Modelo de datos para los libros que  inflarán  la lista
  */
 public class Book {
-    private static int id = 0;
 
     /**
      * Arreglo de objetos que simula una fuente de datos
@@ -24,43 +23,26 @@ public class Book {
      * Mapa simulador de búsquedas de libros por id
      */
     public static final Map<String, BookItem> MAPA_ITEMS = new HashMap<String, BookItem>();
-/*
-    private static int generarId() {
-        return id=id+1;
+
+
+    public static List<Book.BookItem>getBooks()
+    {
+    // metodo obtener lista de todos los libros de la base de datos
+        List<Book.BookItem> lista = Book.BookItem.listAll((Book.BookItem.class));
+        return lista;
     }
 
-    static{
-        //Rellenar libros de ejemplos
-        agregarLibros(new BookItem(generarId(),"J.R.R. Tolkien","Su historia se desarrolla en la Tercera Edad del Sol de la Tierra Media, un lugar ficticio poblado por hombres y otras razas antropomorfas como los hobbits, los elfos o los enanos, así como por muchas otras criaturas reales y fantásticas"
-                ,"29/07/1956","El Señor de los Anillos"
-                ,"http://t3.gstatic.com/images?q=tbn:ANd9GcQcbgn26UtyF_Di0Z05LyOzv4g3qGMz4QEEyR38vozUQ380JP2m"));
+    public static boolean exists(Book.BookItem bookItem,String key) {
+        // metodo para saber si existe un libro determinado
 
-
-        agregarLibros(new BookItem(generarId(),"Dan Brown ","El libro narra los intentos de Robert Langdon, Profesor de Iconografía Religiosa de la Universidad Harvard, para resolver el misterioso asesinato de Jacques Saunière ocurrido en el Museo del Louvre en París"
-                ,"29/04/2003","El Código da Vinci"
-                ,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScg-2NuBUFlQ2oiPmCitDzjQwVOgbw1tbqRTlwnYceJsgHp7JX3g"));
-
-        agregarLibros(new BookItem(generarId(),"Paulo Coelho ","El libro trata sobre los sueños y los medios que utilizamos para alcanzarlos, sobre el azar en nuestra vida y las señales que se presentan a lo largo de esta."
-                ,"29/04/1988","El Alquimista"
-                ,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD21letDykfl-zeo_8c_3E6NORhgP49JYQ4jcrPbbrZHZMH0y4aQ"));
-
-        agregarLibros(new BookItem(generarId(),"Stephenie Meyer  ","Cuando Isabella Swan se muda a Forks, una pequeña localidad del estado de Washington en la que nunca deja de llover, piensa que es lo más aburrido que le podía haber ocurrido en la vida."
-                ,"20/11/2009","Crepúsculo"
-                ,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVyPXlhFcu6JpfeODHlVfqqXKdrh1BPp_1MpdghkEgmhFnBXLxUQ"));
-
+       boolean existe = false;
+         bookItem = Book.BookItem.findById(Book.BookItem.class,Long.parseLong(key));
+         if (bookItem!=null) existe=true;
+         return existe;
     }
 
-    @NonNull
 
 
-    private static void agregarLibros(BookItem item){ // metodo para agregar libros a la lista
-        ITEMS.add(item);
-        MAPA_ITEMS.put(String.valueOf(item.Identificador),item);
-
-     //   La lista de libros estática ITEMS actuará como origen de datos para el adaptador de la lista que se creará.
-    //    El mapa MAPA_ITEMS será el índice de búsqueda del cuál se obtendrá los datos a través de un identificador.
-    }
-*/
 @Table (name="Books")
     public static class BookItem extends SugarRecord {
         //creamos la clase book con sus atributos y su constructor
@@ -83,6 +65,8 @@ public class Book {
         this.title = titulo;
         this.url_image = URL_Imagen;
     }
+
+
 
     public int getIdentificador() {
         return identificador;

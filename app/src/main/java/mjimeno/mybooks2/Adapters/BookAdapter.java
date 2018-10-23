@@ -13,18 +13,16 @@ import mjimeno.mybooks2.R;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
 {
-   // View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.book_list_par,parent,false);
-    //    return new BookAdapterFirebase.BooksHolder(view);
 
     private  final List<Book.BookItem> mValues;
     // variable contenedora de la lista de objetos bookItem
-  //  private  OnItemClickListener escuchaClicksExterna; // declaracion de variable tipo OnClickListener,referencia a nuestra interface
+    private  OnItemClickListener escuchaClicksExterna; // declaracion de variable tipo OnClickListener,referencia a nuestra interface
 
     //constructor, le pasamos la lista
-    public BookAdapter(List<Book.BookItem> items){
-        // quitarle comentario, OnItemClickListener escuchaClicksExterna){
+    public BookAdapter(List<Book.BookItem> items,OnItemClickListener escuchaClicksExterna){
+
         mValues = items;
-   //     this.escuchaClicksExterna = escuchaClicksExterna;
+        this.escuchaClicksExterna = escuchaClicksExterna;
     }
    // Necesitamos hacer esto porque cuando nuestro Fragment implementará esta interface,
    // debemos decirle a onItemClickListener que este Fragment ha implementado la interface.
@@ -115,7 +113,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
 
         @Override
        public void onClick(View v) {
-            //escuchaClicksExterna.onClick(this,obtenerIdLibro(getAdapterPosition()));
+            escuchaClicksExterna.onClick(this,obtenerIdLibro(getAdapterPosition()));
        }
     }
          //es una interfaz que transmite los eventos de click al actividad contenedora del recycler view en este caso BookListActivity

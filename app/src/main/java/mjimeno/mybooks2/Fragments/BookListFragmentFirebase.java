@@ -50,7 +50,7 @@ public class BookListFragmentFirebase extends Fragment {
         {
             Toast.makeText(getContext(),getResources().getString(R.string.Error_Red),Toast.LENGTH_LONG).show();
 
-            ((BookListActivity) getActivity()).cargarFragmentoBBDD();
+         //   ((BookListActivity) getActivity()).cargarFragmentoBBDD();
 
         }
 
@@ -75,6 +75,7 @@ public class BookListFragmentFirebase extends Fragment {
 
             FirebaseRecyclerOptions bookOptions = new FirebaseRecyclerOptions.Builder<Book.BookItem>()
                     .setQuery(bookQuery, Book.BookItem.class).build();// le pasamos la query y la clase
+       // bookOptions.getSnapshots();
             adapter = new BookAdapterFirebase(bookOptions); // creamos ojeto adapter
             recyclerViewBooks.setAdapter(adapter);//asignamos al recicler el adapter
 
@@ -109,7 +110,7 @@ public class BookListFragmentFirebase extends Fragment {
              //           .replace(R.id.book_detail_container, new BookListFragmentLocal())
                         // .addToBackStack(null)
            //             .commit();
-                ((BookListActivity) getActivity()).cargarFragmentoBBDD();
+              //  ((BookListActivity) getActivity()).cargarFragmentoBBDD();
 
 
 

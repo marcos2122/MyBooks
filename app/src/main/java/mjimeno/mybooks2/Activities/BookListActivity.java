@@ -26,9 +26,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.orm.SugarDb;
 
+import java.util.List;
+
 import mjimeno.mybooks2.Fragments.BookDetailFragment;
+import mjimeno.mybooks2.Fragments.BookListFragment;
 import mjimeno.mybooks2.Fragments.BookListFragmentFirebase;
 import mjimeno.mybooks2.Fragments.BookListFragmentLocal;
+import mjimeno.mybooks2.Models.Book;
 import mjimeno.mybooks2.R;
 //import com.google.firebase.auth.AuthUI;
 //import mjimeno.mybooks2.Models.BookItem;
@@ -39,10 +43,11 @@ import mjimeno.mybooks2.R;
  */
 public class BookListActivity extends AppCompatActivity
         implements
-        //BookListFragment.EscuchaFragmento,
+        BookListFragment.EscuchaFragmento,
         NavigationView.OnNavigationItemSelectedListener{ // implementa la interfaz declarada en bookadapter
 
     public static boolean mTwoPane;
+    public static boolean filtro;
     private TextView usuario,email;
 
     @Override
@@ -87,26 +92,20 @@ public class BookListActivity extends AppCompatActivity
 
              mTwoPane = true;
             //cargamos el fragmento detalle , el primero de la lista
-            //cargarFragmento(String.valueOf(Book.ITEMS.get(0).Identificador));
-         //   cargarFragmento(String.valueOf(0));
+            cargarFragmento(String.valueOf(Book.ITEMS.get(0).identificador));
 
-        }
+            }
+
+
 
 
         // agregar fragmento de lista
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.book_list_container, new BookListFragmentFirebase()) // booklistFragment
+                  getSupportFragmentManager()
+                         .beginTransaction()
+                         .replace(R.id.book_list_container,  new BookListFragment())
                // .addToBackStack(null)
-                .commit();
-       // View recyclerView = findViewById(R.id.book_list);
-       // assert recyclerView != null;
-      //  prepararLista((RecyclerView) recyclerView);//recibe la lista estática ModeloArticulo.ITEMS y al propio fragmento como escucha
-    }
-   // private void prepararLista(@NonNull RecyclerView recyclerView){// le pasamos el adaptador al recycler view y recibe la lista estática Book.ITEMS y la propia activity como escucha
-   //     recyclerView.setAdapter(new BookAdapter(Book.ITEMS,this));
-
-  //  }
+                            .commit();
+         }
 
   private void signOut() {
         //FirebaseUI es una biblioteca creada a partir del SDK de Firebase Authentication que proporciona flujos directos de IU para usar en la app.
@@ -132,13 +131,6 @@ public class BookListActivity extends AppCompatActivity
                .commit();
    }
 
-   public void cargarFragmentoBBDD(){
-       BookListFragmentLocal fragment = new BookListFragmentLocal();
-       getSupportFragmentManager().beginTransaction()
-               .replace(R.id.book_list_container, fragment)
-               // .addToBackStack(null)
-               .commit();
-   }
 
    private void recuperarDatosUsuario(){
 
@@ -157,24 +149,8 @@ public class BookListActivity extends AppCompatActivity
         }
 
     }
-   /*
-    @Override
-    public void onClick(BookAdapter.ViewHolder viewHolder, String id) {
-
-       if (mTwoPane) { //si es una tablet cargamos el fragment en su contenedor correspondiente
-            cargarFragmento(id);
-        } else { // si es un movil con la clase intent abrimos la aplicación detalle y añadimos información sobre id al fragment
-
-           // Toast.makeText(getApplicationContext(),id,Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(this, BookDetailActivity.class);
-            intent.putExtra(BookDetailFragment.ARG_ITEM_ID,id);
-            startActivity(intent);
-        }
 
 
-    }
-*/
-   /*
     @Override
     public void alSeleccionarItem(String idLibro) {
         if (mTwoPane) { //si es una tablet cargamos el fragment en su contenedor correspondiente
@@ -187,7 +163,7 @@ public class BookListActivity extends AppCompatActivity
             startActivity(intent);
         }
     }
-*/
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -245,25 +221,24 @@ public class BookListActivity extends AppCompatActivity
 
         switch (item.getItemId()){
             case  R.id.nav_listarLibros:
-                fragment = new BookListFragmentFirebase();
+
+                fragment = new BookListFragment();
                 fragmentTransaction =true;
                 break;
 
             case R.id.nav_listarLibrosBD:
-                fragment = new BookListFragmentLocal();
-                fragmentTransaction = true;
 
                 break;
 
             case R.id.nav_slideshow:
-              //  Book.BookItem.deleteAll(Book.BookItem.class);
+             //   Book.BookItem.deleteAll(Book.BookItem.class);
 
                 break;
 
             case R.id.nav_manage:
-               // List<Book.BookItem> n = Book.BookItem.listAll((Book.BookItem.class));
+             //  List<Book.BookItem> n = Book.BookItem.listAll((Book.BookItem.class));
 
-               // int a = n.size();
+            //   int a = n.size();
                // Toast.makeText(getApplicationContext(),String.valueOf(a),Toast.LENGTH_LONG).show();
 
                 break;

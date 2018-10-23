@@ -49,8 +49,8 @@
 
     <!-- Fragment firebase-->
 
-    <string name="Error_Servidor">Error en el servidor,se cargaran los datos de tu base de datos local</string>
-    <string name="Error_Red">No hay conexión de red,se cargaran los datos de tu base de datos local</string>
+    <string name="Error_Servidor">Error en el servidor,se están cargando los datos desde tu base de datos local</string>
+    <string name="Error_Red">No hay conexión de red,se cargaran los datos desde tu base de datos local</string>
 
 
 </resources>
