@@ -94,9 +94,11 @@ public class BookListActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-     progressBarFoto.setVisibility(View.VISIBLE);
+     // progressBarFoto.setVisibility(View.VISIBLE);
         //https://stackoverflow.com/questions/37374868/how-to-get-url-from-firebase-storage-getdownloadurl
         if (requestCode== GALLERY_INTENT && resultCode==RESULT_OK){
+            progressBarFoto.setVisibility(View.VISIBLE);
+
              final Uri uriImagenSeleccionada = data.getData();
           //obtengo una referencia donde se va almacenar la foto
            final StorageReference mStorageRef = mStorage.child("fotosUsuario").child(uriImagenSeleccionada.getLastPathSegment());
@@ -137,8 +139,9 @@ public class BookListActivity extends AppCompatActivity
                                         .centerCrop()
                                         .into(imagenUsuario);
 
-*/
 
+
+*/
 
                                 Glide.with(getApplicationContext()).load(photo).asBitmap().centerCrop().fitCenter().into(new BitmapImageViewTarget(imagenUsuario) {
                                     @Override
@@ -324,6 +327,7 @@ public class BookListActivity extends AppCompatActivity
                    email.setText((user.getEmail()));
                    Uri photo = user.getPhotoUrl();
                    if (photo!=null) {
+
                        Glide.with(getApplicationContext()).load(photo).asBitmap().centerCrop().fitCenter().into(new BitmapImageViewTarget(imagenUsuario) {
                            @Override
                            protected void setResource(Bitmap resource) {
@@ -334,8 +338,9 @@ public class BookListActivity extends AppCompatActivity
                            }
                        });
 
-                 /*
-                    Glide.with(BookListActivity.this)
+
+/*
+                    Glide.with(getApplicationContext())
                             .load(photo)
                             .fitCenter()
                             .centerCrop()
@@ -343,9 +348,9 @@ public class BookListActivity extends AppCompatActivity
                             .skipMemoryCache(true)
 
                             .into(imagenUsuario);
-
-
 */
+
+
                    }
                    else
                    {
@@ -465,7 +470,7 @@ public class BookListActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_slideshow:
-                Book.BookItem.deleteAll(Book.BookItem.class);
+              //  Book.BookItem.deleteAll(Book.BookItem.class);
 
                 break;
 
