@@ -4,6 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id = "@+id/SwipeRefreshLayout"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent">
+
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/book_list"
@@ -14,6 +19,7 @@
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:context="mjimeno.mybooks2.Activities.BookListActivity"
         tools:listitem="@layout/book_list_impar" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </FrameLayout>
 

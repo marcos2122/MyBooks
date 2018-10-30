@@ -7,20 +7,31 @@
     <string name="Descripcion">Descripción</string>
     <string name="Clave">ID.LIBRO</string>
     <string name="title_activity_login">Iniciar Sesión</string>
-<!-- Pantalla Inicio-->
+    <!--
+    <string name="facebook_app_id">483561662152348</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb483561662152348</string>
+
+-->
+    <string name="facebook_app_id">483561662152348</string>
+    <string name="fb_login_protocol_scheme">fb483561662152348</string>
+
+
+    <!-- Pantalla Inicio-->
     <string name="title_activity_presentation">Bookshop Jimeno</string>
     <string name="dummy_button">Entrar</string>
     <string name="dummy_content">Bookshop \n
         Jimeno</string>
+    <string name="libro_semana">Libro de la semana</string>
 
-  <!-- Pantalla Login
+
+    <!-- Pantalla Login
   -->
 
     <string name="hintEmail">E-mail</string>
     <string name="hintPassword">Contraseña</string>
     <string name="botonIniciarSesion">Iniciar sesión</string>
     <string name="botonRegistrar">Registrarse</string>
-    <string name="labelActualizarPassword">Actualizar Contraseña</string>
+    <string name="labelActualizarPassword">¿Has olvidado la contraseña?</string>
     <string name="botonIniciarSesionFace">Iniciar sesión con Facebook</string>
     <string name="botonIniciarSesionGoogle">Iniciar sesión con Google</string>
     <string name="barraDivisora">O</string>
@@ -30,11 +41,23 @@
     <string name="ErrorPassw2">Falta ingresar la contraseña</string>
     <string name="ErrorInicioSesion">Contraseña/email incorrectos o error de Servidor</string>
     <string name="ErrorRegistro">La cuenta ya existe</string>
+    <string name="ErrorSesion">No se pudo iniciar sesión</string>
+    <string name="TextoBotonFace">Iniciar Sesión con Facebook</string>
+    <string name="TextoBotonGoogle">Iniciar Sesión con Google</string>
+    <string name="RestablecerContrasenyaTitulo">Restablecer Contraseña</string>
+    <string name="RestablecerContrasenyaMensaje">Escribe tu email y te mandamos un enlace para restablecer la contraseña,gracias</string>
+    <string name="ErrorOnCancelFace">Facebook canceló la operación</string>
+    <string name="ErrorOnErrorFace">Ocurrió un error al ingresar a Facebook</string>
+    <string name="ErrorCredencialesFace">Ocurrió un error al ingresar a Firebase</string>
+    <string name="ConfirmarDialog">Confirmar</string>
+    <string name="CancelarDialog">Cancelar</string>
     <string name="ProgresDialogLogin">Realizando proceso de autentificación...</string>
     <string name="ProgresDialogRegistro">Realizando proceso de Registro de Usuario...</string>
+    <string name="ProgresDialogConfirmacionEnvio">Correo Enviado a: </string>
+    <string name="ProgresDialogCancelacionEnvio">Fallo al enviar el correo:</string>
 
-<!-- Navigation drawer-->
-   <string name="title_activity_main">MainActivity</string>
+    <!-- Navigation drawer-->
+    <string name="title_activity_main">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
@@ -50,7 +73,18 @@
     <!-- Fragment firebase-->
 
     <string name="Error_Servidor">Error en el servidor,se están cargando los datos desde tu base de datos local</string>
-    <string name="Error_Red">No hay conexión de red,se cargaran los datos desde tu base de datos local</string>
+    <string name="Error_Red">Sin conexión a internet,se cargaran los datos desde tu base de datos local,pulse listar Servidor cuando restablezca conexión</string>
 
+    <!-- main activity-->
+    <string name="Foto_Actualizada">La foto ha sido actualizada correctamente</string>
+
+    <string name="Foto_Error">No se ha podido subir la foto correctamente</string>
+
+    <!--fragment detalle -->
+
+     <string name="FotoCaption">FotoLibro</string>
 
 </resources>
+
+
+

@@ -9,9 +9,11 @@
         android:id="@+id/book_list_local"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="vertical"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         tools:context="mjimeno.mybooks2.Activities.BookListActivity"
         tools:listitem="@layout/book_list_impar" />
+
 </FrameLayout>

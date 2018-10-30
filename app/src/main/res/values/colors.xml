@@ -7,6 +7,7 @@
     <color name="colorImpar">#c3c9ef</color>
     <color name="colorEjercicio2">#dedfea</color>
     <color name="colorLabels">#6db3f9</color>
+    <color name= "colorbordefoto">#009688</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>

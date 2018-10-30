@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 
 import mjimeno.mybooks2.R;
 
-public class AreaUserFragment extends Fragment {
+public class PresentacionFragmentDetalle extends Fragment {
 
-    public AreaUserFragment()
+    public PresentacionFragmentDetalle()
     {}
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,7 +22,8 @@ public class AreaUserFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.area_user,container,false);
+        View view = inflater.inflate(R.layout.book_fragmentdetalle_presentacion,container,false);
+
         return view;
     }
 }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -29,20 +30,25 @@ public class BookDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
 
-
+    try {
         if (getArguments().containsKey(ARG_ITEM_ID)) { //mira en los argumentos si contiene la clave de el libro
             // Carga el modelo según el identificador
             mItem = Book.MAPA_ITEMS.get(getArguments().getString(ARG_ITEM_ID));// obtenemos el objeto por su clave
 
-           //Activity activity = this.getActivity();
-          // CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+            //Activity activity = this.getActivity();
+            // CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+           // if (appBarLayout != null) appBarLayout.setTitle(mItem.Titulo);
+            if (savedInstanceState != null) {
+                getActivity().setTitle(mItem.title); // pone el titulo del libro aunque haya un giro de pantalla
+            } else {
+                getActivity().setTitle(mItem.title);
+            }
+        }
+    }catch (NullPointerException ex){ex.printStackTrace();}
 
-          if (savedInstanceState != null) getActivity().setTitle(mItem.title); // pone el titulo del libro aunque haya un giro de pantalla
-          else getActivity().setTitle(mItem.title);
-          //  if (appBarLayout != null) appBarLayout.setTitle(mItem.Titulo);
 
         }
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

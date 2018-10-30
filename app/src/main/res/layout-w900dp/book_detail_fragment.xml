@@ -8,95 +8,116 @@
     app:layout_constraintGuide_percent="0.45"
     tools:layout_editor_absoluteY="81dp">
 
-    <TextView
-        android:id="@+id/textViewTituloCabecera3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/autor"
-        android:textAllCaps="true"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageViewFotoLibro"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageViewFotoLibro"
-        android:layout_width="259dp"
-        android:layout_height="400dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textViewAutor"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/berkshire_swash"
-        android:text="erererewrewr"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/imageViewFotoLibro"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewFechaPublicacionCabecera"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:text="@string/Fecha"
-        android:textAllCaps="true"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageViewFotoLibro"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAutor" />
+            <TextView
+                android:id="@+id/textViewTituloCabecera3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/autor"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imageViewFotoLibro"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewFecha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/berkshire_swash"
-        android:textSize="18sp"
-        android:textStyle="normal"
-        app:layout_constraintStart_toEndOf="@+id/imageViewFotoLibro"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFechaPublicacionCabecera" />
+            <ImageView
+                android:id="@+id/imageViewFotoLibro"
+                android:layout_width="259dp"
+                android:layout_height="289dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="12dp"
+                android:contentDescription="@string/FotoCaption"
+                app:layout_constraintBottom_toTopOf="@+id/textViewDescripcion"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.342" />
 
-    <TextView
-        android:id="@+id/textViewDescripcionCabecera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/Descripcion"
-        android:textAllCaps="true"
+            <TextView
+                android:id="@+id/textViewAutor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
 
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageViewFotoLibro"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFecha" />
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="76dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/berkshire_swash"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.034"
+                app:layout_constraintStart_toEndOf="@+id/imageViewFotoLibro"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewDescripcion"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+            <TextView
+                android:id="@+id/textViewFechaPublicacionCabecera"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="28dp"
+                android:text="@string/Fecha"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imageViewFotoLibro"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAutor" />
 
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="60dp"
-        android:fontFamily="@font/berkshire_swash"
+            <TextView
+                android:id="@+id/textViewFecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/berkshire_swash"
 
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewFotoLibro"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDescripcionCabecera" />
+                android:textSize="18sp"
+                android:textStyle="normal"
+                app:layout_constraintStart_toEndOf="@+id/imageViewFotoLibro"
+                app:layout_constraintTop_toBottomOf="@+id/textViewFechaPublicacionCabecera" />
+
+            <TextView
+                android:id="@+id/textViewDescripcionCabecera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="48dp"
+
+                android:text="@string/Descripcion"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imageViewFotoLibro"
+                app:layout_constraintTop_toBottomOf="@+id/textViewFecha" />
+
+            <TextView
+                android:id="@+id/textViewDescripcion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="52dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/berkshire_swash"
+
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.988"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewDescripcionCabecera" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
 
 
 </android.support.constraint.ConstraintLayout>

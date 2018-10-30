@@ -34,17 +34,20 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3" />
+
+         android:layout_toRightOf="@+id/book_list_container" estaba en detail
+
    -->
     <FrameLayout
         android:id="@+id/book_list_container"
-        android:layout_width="400dp"
+        android:layout_width="340dp"
         android:layout_height="match_parent"
          />
+
     <FrameLayout
         android:id="@+id/book_detail_container"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@+id/book_list_container"
         android:layout_weight="3" />
 
 

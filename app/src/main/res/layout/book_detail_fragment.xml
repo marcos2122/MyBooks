@@ -8,6 +8,17 @@
     app:layout_constraintGuide_percent="0.45"
     tools:layout_editor_absoluteY="81dp">
 
+
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
     <TextView
         android:id="@+id/textViewTituloCabecera3"
         android:layout_width="wrap_content"
@@ -21,14 +32,14 @@
         app:layout_constraintStart_toEndOf="@+id/imageViewFotoLibro"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageViewFotoLibro"
-        android:layout_width="152dp"
-        android:layout_height="246dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/imageViewFotoLibro"
+            android:layout_width="152dp"
+            android:layout_height="246dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewAutor"
@@ -81,18 +92,20 @@
         app:layout_constraintStart_toEndOf="@+id/imageViewFotoLibro"
         app:layout_constraintTop_toBottomOf="@+id/textViewFecha" />
 
-    <TextView
-        android:id="@+id/textViewDescripcion"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/berkshire_swash"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.048"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewFotoLibro" />
+        <TextView
+            android:id="@+id/textViewDescripcion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/berkshire_swash"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.048"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewFotoLibro" />
+    </android.support.constraint.ConstraintLayout>
 
+</ScrollView>
 </android.support.constraint.ConstraintLayout>

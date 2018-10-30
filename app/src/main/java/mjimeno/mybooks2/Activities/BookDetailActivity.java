@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import mjimeno.mybooks2.Fragments.BookDetailFragment;
 import mjimeno.mybooks2.Models.Book;
@@ -60,7 +61,6 @@ public class BookDetailActivity extends AppCompatActivity {
         //
         if (savedInstanceState == null) {
           //Crea un objeto bundle,captura los argumentos y añade un fragmento a la actividad
-            //Toast.makeText(getApplicationContext(),"ES nulo",Toast.LENGTH_LONG).show();
 
             Bundle arguments = new Bundle();
             arguments.putString(ARG_ITEM_ID,

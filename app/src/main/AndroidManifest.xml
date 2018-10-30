@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="mjimeno.mybooks2"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <supports-screens
         android:anyDensity="true"
@@ -22,32 +25,78 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="DATABASE" android:value="books.db" />
-        <meta-data android:name="VERSION" android:value="3" />
-        <meta-data android:name="QUERY_LOG" android:value="true" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="mjimeno.mybooks2.Models" />
+        <meta-data
+            android:name="DATABASE"
+            android:value="books.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="3" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="mjimeno.mybooks2.Models" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"
+            tools:replace="android:value" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+
+        <!--
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges= "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+
+        <activity android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter> <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+        -->
 
         <activity
             android:name=".Activities.BookListActivity"
+
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-
 
         </activity>
         <activity
             android:name=".Activities.BookDetailActivity"
             android:label="@string/title_book_detail"
+            android:configChanges="screenSize|orientation"
             android:parentActivityName=".Activities.BookListActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mjimeno.mybooks2.Activities.BookListActivity" />
         </activity>
+        <!--
         <activity
             android:name=".Activities.PresentationActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/app_name"
             android:icon="@mipmap/ic_launcher3"
+            android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher3"
             android:theme="@style/FullscreenTheme">
             <intent-filter>
@@ -55,11 +104,27 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".Activities.LoginActivity"
-            android:theme="@style/AppTheme1"
-            android:screenOrientation="portrait">
+        -->
+
+
+        <activity
+            android:name=".Activities.LoginActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme1"></activity>
+
+        <activity android:name=".Activities.SplashActivity"
+            android:configChanges="orientation|screenSize"
+            android:icon="@mipmap/ic_launcher3"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher3"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
         </activity>
     </application>
 

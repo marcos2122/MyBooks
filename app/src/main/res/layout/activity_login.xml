@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
@@ -36,9 +36,9 @@
                 android:id="@+id/divider6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="70dp"
+                android:layout_marginEnd="8dp"
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toStartOf="@+id/textViewDivisor"
                 app:layout_constraintStart_toStartOf="parent"
@@ -48,9 +48,9 @@
                 android:id="@+id/textInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="40dp"
+                android:layout_marginEnd="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -63,7 +63,6 @@
                     android:hint="@string/hintEmail"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:textCursorDrawable="@drawable/email_icon"
                     android:textSize="18sp" />
             </android.support.design.widget.TextInputLayout>
 
@@ -71,9 +70,9 @@
                 android:id="@+id/textInputLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="24dp"
+                android:layout_marginEnd="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +87,6 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:textCursorDrawable="@drawable/passw_icon"
                     android:textSize="18sp" />
 
 
@@ -97,11 +95,12 @@
             <TextView
                 android:id="@+id/textViewActualizarPassword"
                 android:layout_width="wrap_content"
-                android:layout_height="21dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:text="@string/labelActualizarPassword"
                 android:textColor="@color/colorLabels"
+                android:textSize="18sp"
                 android:textStyle="italic"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
@@ -111,11 +110,10 @@
                 android:id="@+id/buttonIniciarSesion"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="70dp"
+                android:layout_marginEnd="12dp"
                 android:background="@drawable/boton_custom"
-                android:drawableStart="@drawable/login2_icon"
                 android:text="@string/botonIniciarSesion"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPar"
@@ -127,18 +125,30 @@
                 android:id="@+id/buttonRegistrar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="1dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="70dp"
+                android:layout_marginEnd="1dp"
                 android:background="@drawable/boton_custom"
-                android:drawableStart="@drawable/registro_icon"
                 android:text="@string/botonRegistrar"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPar"
                 app:layout_constraintEnd_toStartOf="@+id/textViewDivisor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+            <View
+                android:id="@+id/divider8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="12dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.466"
+                app:layout_constraintStart_toEndOf="@+id/textViewDivisor"
+                app:layout_constraintTop_toTopOf="@+id/buttonIniciarSesion" />
 
+            <!--
             <Button
                 android:id="@+id/buttonFace"
                 android:layout_width="0dp"
@@ -155,8 +165,13 @@
                 android:textColor="@color/colorPar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonGoogle" />
+                app:layout_constraintTop_toBottomOf="@+id/buttonGoogle"
+                app:layout_constraintVertical_bias="0.388" />
+
+
+
 
             <Button
                 android:id="@+id/buttonGoogle"
@@ -177,37 +192,61 @@
                 app:layout_constraintHorizontal_bias="0.081"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/divider6" />
-
-            <View
-                android:id="@+id/divider8"
+-->
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/botonGoogle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="70dp"
-                android:background="?android:attr/listDivider"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.466"
-                app:layout_constraintStart_toEndOf="@+id/textViewDivisor"
-                app:layout_constraintTop_toTopOf="@+id/buttonIniciarSesion" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textViewDivisor"
+                app:layout_constraintVertical_bias="0.083" />
+
+            <com.facebook.login.widget.LoginButton xmlns:facebook="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/botonFacebook"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="8dp"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:textAlignment="center"
+                facebook:com_facebook_login_text="@string/TextoBotonFace"
+                facebook:layout_constraintBottom_toBottomOf="parent"
+                facebook:layout_constraintEnd_toEndOf="parent"
+                facebook:layout_constraintHorizontal_bias="0.0"
+                facebook:layout_constraintStart_toStartOf="parent"
+                facebook:layout_constraintTop_toBottomOf="@+id/botonGoogle"
+                facebook:layout_constraintVertical_bias="0.317" />
+
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:indeterminate="true"
-                android:max="100"
                 android:indeterminateTint="#1a09d6"
+                android:max="100"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonFace" />
+                app:layout_constraintTop_toBottomOf="@+id/botonFacebook" />
 
 
         </android.support.constraint.ConstraintLayout>

@@ -78,6 +78,21 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>
     El método obtenerIdLibro() retorna en el atributo idLibro de cada objeto Libro asociado a los ítems de la lista.
     Este permite enviar por el controlador onClick() el identificador para determinar el detalle de cada libro.
 */
+
+  public void setItems(List<Book.BookItem> items)
+  {
+      try {
+          mValues.addAll(items);
+          notifyDataSetChanged();
+      }catch (NullPointerException ex){
+          ex.printStackTrace();
+      }
+  }
+
+  public void clear(){
+      mValues.clear();
+      notifyDataSetChanged();
+  }
     private String obtenerIdLibro(int posicion) {
         if (posicion != RecyclerView.NO_POSITION) {
            //return String.valueOf(getItemViewType(posicion));

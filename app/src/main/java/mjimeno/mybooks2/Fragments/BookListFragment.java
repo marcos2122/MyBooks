@@ -1,11 +1,13 @@
 package mjimeno.mybooks2.Fragments;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -30,7 +32,7 @@ import mjimeno.mybooks2.Models.Book;
 import mjimeno.mybooks2.R;
 import mjimeno.mybooks2.Red.TestearRed;
 
-import static mjimeno.mybooks2.Activities.BookListActivity.filtro;
+
 import static mjimeno.mybooks2.Models.Book.ITEMS;
 import static mjimeno.mybooks2.Models.Book.MAPA_ITEMS;
 
@@ -43,7 +45,9 @@ public class BookListFragment extends Fragment implements BookAdapter.OnItemClic
     }
     BookAdapter adapter;
     RecyclerView recyclerViewLibros;
+    private SwipeRefreshLayout refreshLayout;
     private DatabaseReference mDatabase;
+    private List<Book.BookItem> bookItems;
 
 
 
@@ -51,11 +55,6 @@ public class BookListFragment extends Fragment implements BookAdapter.OnItemClic
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
-        //detectarEstadoconexion();
-
 
 
         if (getArguments()!=null ){
@@ -68,40 +67,48 @@ public class BookListFragment extends Fragment implements BookAdapter.OnItemClic
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.book_list_fragment, container, false);
+        mDatabase= FirebaseDatabase.getInstance().getReference(BOOK_REFERENCE);
+        // obtenemos referencia al nodo
 
-        recyclerViewLibros = vista.findViewById(R.id.book_list);
-        assert recyclerViewLibros != null;
+        recyclerViewLibros =(RecyclerView) vista.findViewById(R.id.book_list);
+        refreshLayout =(SwipeRefreshLayout) vista.findViewById(R.id.SwipeRefreshLayout);
+         assert recyclerViewLibros != null;
         recyclerViewLibros.hasFixedSize();
         recyclerViewLibros.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        if (!TestearRed.isNetworkConnected(getContext()))
-        {
-            //Toast.makeText(getContext(),getResources().getString(R.string.Error_Red),Toast.LENGTH_LONG).show();
+
+    try {
+        if (!TestearRed.isNetworkConnected(getContext())) {
+            Toast.makeText(getContext(),getResources().getString(R.string.Error_Red),Toast.LENGTH_LONG).show();
             //((BookListActivity) getActivity()).cargarFragmentoBBDD();
             cargarDatosBD_Local();
+            refreshLayout.setEnabled(false);
 
         }
         else {
 
-            CargarDatosFirebase(); // cargamos el metodo donde estan todos los oyentes firebase
+                CargarDatosFirebase(); // cargamos el metodo donde estan todos los oyentes firebase
+                refreshLayout.setEnabled(true);
+
+            }
 
         }
+    catch (NullPointerException e){
+        e.printStackTrace();
 
-     return vista;
+    }
+
+    return vista;
     }
 
 
     private void CargarDatosFirebase(){
-       mDatabase= FirebaseDatabase.getInstance().getReference(BOOK_REFERENCE);
-        // obtenemos referencia al nodo
-
-
-        adapter = new BookAdapter(ITEMS, this);
-        recyclerViewLibros.setAdapter(adapter);
 
         mDatabase.addChildEventListener(new ChildEventListener() {
 
-            List<Book.BookItem> num =  Book.getBooks(); // metodo que retorna la lista de libros de la bd local
+           // List<Book.BookItem> num =  Book.getBooks(); // metodo que retorna la lista de libros de la bd local
+            List<Book.BookItem> num = Book.BookItem.listAll((Book.BookItem.class));
+
             int list = num.size(); // total de registros de la base de datos
 
 
@@ -122,16 +129,16 @@ public class BookListFragment extends Fragment implements BookAdapter.OnItemClic
                 */
 
 
-              Book.BookItem libro = dataSnapshot.getValue(Book.BookItem.class);
+                Book.BookItem libro = dataSnapshot.getValue(Book.BookItem.class);
 
-              if (!Book.exists(libro,dataSnapshot.getKey())){ // llamamos al metodo si no existe libro
+                if (!Book.exists(libro,dataSnapshot.getKey())){ // llamamos al metodo si no existe libro
 
-                  String llave = dataSnapshot.getKey();
-                  libro.setIdentificador(Integer.parseInt(llave));
-                  libro.setId(Long.parseLong(llave));
-                  libro.save();
+                    String llave = dataSnapshot.getKey();
+                    libro.setIdentificador(Integer.parseInt(llave));
+                    libro.setId(Long.parseLong(llave));
+                    libro.save();
 
-              }
+                }
 
 
             }
@@ -141,6 +148,7 @@ public class BookListFragment extends Fragment implements BookAdapter.OnItemClic
 
                 if(list>0) { // buscamos el objeto a actualizar y lo actualizamos
                     Book.BookItem LibrosBdLocal = Book.BookItem.findById(Book.BookItem.class, num.get(Integer.parseInt(dataSnapshot.getKey())).getId());
+                  //  Book.BookItem LibrosBdLocal = Book.BookItem.findById(Book.BookItem.class,Long.parseLong(dataSnapshot.getKey()));
                     Book.BookItem libroFirebase = dataSnapshot.getValue(Book.BookItem.class);
 
                     LibrosBdLocal.setAuthor(libroFirebase.getAuthor());
@@ -150,15 +158,19 @@ public class BookListFragment extends Fragment implements BookAdapter.OnItemClic
                     LibrosBdLocal.setIdentificador(Integer.parseInt(dataSnapshot.getKey()));
                     LibrosBdLocal.setPublication_date(libroFirebase.getPublication_date());
                     LibrosBdLocal.setId(libroFirebase.getId());
-
                     LibrosBdLocal.save();
                 }
+
+
+
+
+
 
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-               // buscamos el objeto y lo borramos localmente
+                // buscamos el objeto y lo borramos localmente
                 Book.BookItem LibrosBdLocal = Book.BookItem.findById(Book.BookItem.class, num.get(Integer.parseInt(dataSnapshot.getKey())).getId());
                 LibrosBdLocal.delete();
 
@@ -176,7 +188,6 @@ public class BookListFragment extends Fragment implements BookAdapter.OnItemClic
         });
 
 
-
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -184,7 +195,7 @@ public class BookListFragment extends Fragment implements BookAdapter.OnItemClic
                 MAPA_ITEMS.clear();
                 GenericTypeIndicator<List<Book.BookItem>> genericTypeIndicator = new GenericTypeIndicator<List<Book.BookItem>>() {
                 };
-                List<Book.BookItem> bookItems = dataSnapshot.getValue(genericTypeIndicator);
+                 bookItems = dataSnapshot.getValue(genericTypeIndicator);
 
                 // for (Book.BookItem libro : bookItems) {
 
@@ -192,23 +203,23 @@ public class BookListFragment extends Fragment implements BookAdapter.OnItemClic
 
                 for (int i = 0; i < bookItems.size(); i++) {
                     //Log.i("Clave",bookItems.get(i))
-                    bookItems.get(i).identificador = i;
-                    ITEMS.add(bookItems.get(i));
-                    MAPA_ITEMS.put(String.valueOf(i), bookItems.get(i));
+                   bookItems.get(i).identificador = i;
+                   ITEMS.add(bookItems.get(i));
+                   MAPA_ITEMS.put(String.valueOf(i), bookItems.get(i));
 
 
-                }
+              }
                 //----
-                /* otra manera de hacerlo---
+                // otra manera de hacerlo---
 
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+               // for(DataSnapshot snapshot : dataSnapshot.getChildren()){
 
-                   Book.BookItem bookItem = snapshot.getValue(Book.BookItem.class);
-                    bookItem.Identificador=Integer.parseInt(snapshot.getKey());
-                    ITEMS.add(bookItem);
-                    MAPA_ITEMS.put(String.valueOf(bookItem.Identificador),bookItem);
-                }
-                */
+               //    Book.BookItem bookItem = snapshot.getValue(Book.BookItem.class);
+               //     bookItem.identificador=Integer.parseInt(snapshot.getKey());
+               //     ITEMS.add(bookItem);
+               //     MAPA_ITEMS.put(String.valueOf(bookItem.identificador),bookItem);
+              //  }
+
                 //--
                 adapter.notifyDataSetChanged();
 
@@ -221,6 +232,7 @@ public class BookListFragment extends Fragment implements BookAdapter.OnItemClic
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.i("Error", databaseError.getMessage());
                 //   Toast.makeText(getContext(),getResources().getString(R.string.Error_Servidor),Toast.LENGTH_LONG).show();
+
                 // ((BookListActivity) getActivity()).cargarFragmentoBBDD(); // llamamos a un metodo de la activity que cargara los datos de la bd local
 
                 cargarDatosBD_Local(); // cargamos los datos de la bd local
@@ -228,23 +240,163 @@ public class BookListFragment extends Fragment implements BookAdapter.OnItemClic
 
             }
         });
-    }
-    private void cargarDatosBD_Local(){
-        // le pasamos al adaptador los datos de la base de datos local
-        ITEMS.clear();
-        MAPA_ITEMS.clear();
-        List<Book.BookItem> n = Book.BookItem.listAll((Book.BookItem.class));
-        for (Book.BookItem bookItem:n){
-            ITEMS.add(bookItem);
-            MAPA_ITEMS.put(String.valueOf(bookItem.getIdentificador()), bookItem);
-        }
 
-        adapter = new BookAdapter(ITEMS,this);
+        adapter = new BookAdapter(ITEMS, this);
         recyclerViewLibros.setAdapter(adapter);
 
-        if (!TestearRed.isNetworkConnected(getContext())) Snackbar.make(recyclerViewLibros,getResources().getString(R.string.Error_Red),Snackbar.LENGTH_LONG).show();
-        else Snackbar.make(recyclerViewLibros,getResources().getString(R.string.Error_Servidor),Snackbar.LENGTH_LONG).show();
+        refreshLayout.setColorSchemeResources(R.color.colorAccent);
+
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+            @Override
+            public void onRefresh() {
+                try {
+                    if (TestearRed.isNetworkConnected(getContext())){
+                        refreshLayout.setEnabled(true);
+                        new tarea().execute();
+                    }
+                    else refreshLayout.setEnabled(false);
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+
+
+                }
+              }
+             });
+
+
+
     }
+    private class tarea extends AsyncTask<Void, Void, List<Book.BookItem>> {
+
+        static final int DURACION = 1000; // 1 segundos de carga
+
+        @Override
+        protected List<Book.BookItem> doInBackground(Void... params) {
+
+            try {
+                Thread.sleep(DURACION);
+                mDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        ITEMS.clear();
+                        MAPA_ITEMS.clear();
+                        GenericTypeIndicator<List<Book.BookItem>> genericTypeIndicator = new GenericTypeIndicator<List<Book.BookItem>>() {
+                        };
+                        bookItems = dataSnapshot.getValue(genericTypeIndicator);
+
+
+                        // for (Book.BookItem libro : bookItems) {
+
+                        //    }
+
+                        for (int i = 0; i < bookItems.size(); i++) {
+                            //Log.i("Clave",bookItems.get(i))
+                            bookItems.get(i).identificador = i;
+                            ITEMS.add(bookItems.get(i));
+                            MAPA_ITEMS.put(String.valueOf(i), bookItems.get(i));
+
+
+                        }
+                        //----
+                /* otra manera de hacerlo---
+
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+                   Book.BookItem bookItem = snapshot.getValue(Book.BookItem.class);
+                    bookItem.Identificador=Integer.parseInt(snapshot.getKey());
+                    ITEMS.add(bookItem);
+                    MAPA_ITEMS.put(String.valueOf(bookItem.Identificador),bookItem);
+                }
+                */
+                        //--
+
+
+
+
+                    }
+
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.i("Erros", databaseError.getMessage());
+                        //   Toast.makeText(getContext(),getResources().getString(R.string.Error_Servidor),Toast.LENGTH_LONG).show();
+                        // ((BookListActivity) getActivity()).cargarFragmentoBBDD(); // llamamos a un metodo de la activity que cargara los datos de la bd local
+
+                    }
+                });
+
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                refreshLayout.setRefreshing(false);
+            }
+
+            return bookItems;
+        }
+
+        @Override
+        protected void onPostExecute(List<Book.BookItem> result) {
+            super.onPostExecute(result);
+
+            // Limpiar elementos antiguos
+            adapter.clear();
+
+            // Añadir elementos nuevos
+            adapter.setItems(result);
+          //  adapter.notifyDataSetChanged();
+
+            // Parar la animación del indicador
+            refreshLayout.setRefreshing(false);
+        }
+        @Override
+        protected void onCancelled(List<Book.BookItem> result)
+
+        {
+            Toast.makeText(getContext(),"Error al refrescar",Toast.LENGTH_LONG).show();
+
+        }
+
+    }
+
+
+
+    private void cargarDatosBD_Local() {
+        // le pasamos al adaptador los datos de la base de datos local
+        refreshLayout.setRefreshing(false);
+        ITEMS.clear();
+        MAPA_ITEMS.clear();
+        List<Book.BookItem> lista = Book.BookItem.listAll((Book.BookItem.class));
+        int total = lista.size();
+            if (total>0) {
+                for (Book.BookItem bookItem : lista) {
+                    ITEMS.add(bookItem);
+                    MAPA_ITEMS.put(String.valueOf(bookItem.getIdentificador()), bookItem);
+               }
+
+            adapter = new BookAdapter(ITEMS, this);
+            recyclerViewLibros.setAdapter(adapter);
+        }else
+        {
+            Toast.makeText(getContext(), "Base datos Local vacía", Toast.LENGTH_LONG).show();
+
+        }
+
+/*
+        try {
+            if (!TestearRed.isNetworkConnected(getContext()))
+                Snackbar.make(recyclerViewLibros, getResources().getString(R.string.Error_Red), Snackbar.LENGTH_LONG).show();
+            else
+                Snackbar.make(recyclerViewLibros, getResources().getString(R.string.Error_Servidor), Snackbar.LENGTH_LONG).show();
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
+        }
+        */
+    }
+
     private void detectarEstadoconexion()
     {
         DatabaseReference connectedRef = FirebaseDatabase.getInstance().getReference(".info/connected");
