@@ -6,12 +6,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_listarLibros"
-            android:icon="@mipmap/icono_listar_firebase"
+            android:icon="@drawable/ic_menu_list_books_firebase"
             android:title="@string/listar_libros" />
         <item
             android:id="@+id/nav_listarLibrosBD"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Por Implementar" />
+            android:icon="@drawable/ic_menu_list_local"
+            android:title="@string/listar_libros_bd" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"

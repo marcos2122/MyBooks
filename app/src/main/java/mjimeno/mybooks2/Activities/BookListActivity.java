@@ -461,11 +461,13 @@ public class BookListActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_listarLibrosBD:
+                 fragment = new BookListFragmentLocal();
+                 fragmentTransaction=true;
 
                 break;
 
             case R.id.nav_slideshow:
-                Book.BookItem.deleteAll(Book.BookItem.class);
+               // Book.BookItem.deleteAll(Book.BookItem.class);
 
                 break;
 

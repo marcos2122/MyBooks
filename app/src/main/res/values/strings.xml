@@ -14,6 +14,7 @@
 -->
     <string name="facebook_app_id">483561662152348</string>
     <string name="fb_login_protocol_scheme">fb483561662152348</string>
+    <string name="default_notification_channel_id">default</string>
 
 
     <!-- Pantalla Inicio-->
@@ -63,9 +64,9 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_closeSesion">Cerrar Sesión</string>
     <string name="action_pregunta_closeSesion">Seguro que desea cerrar la sesión?</string>
-    <string name="listar_libros">Listado Libros Servidor</string>
+    <string name="listar_libros">Listar Libros desde Firebase</string>
 
-    <string name="listar_libros_bd">Listado Libros Local</string>
+    <string name="listar_libros_bd">Listar Libros Localmente</string>
     <string name="SI">SI</string>
     <string name="NO">NO</string>
 
