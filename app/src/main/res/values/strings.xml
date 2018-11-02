@@ -15,7 +15,8 @@
     <string name="facebook_app_id">483561662152348</string>
     <string name="fb_login_protocol_scheme">fb483561662152348</string>
     <string name="default_notification_channel_id">default</string>
-
+    <string name="channel_name">MyChannel</string>
+    <string name="channel_description">Antes de que pueda entregar la notificación en Android 8.0 y superior, se debe registrar el canal de notificación </string>
 
     <!-- Pantalla Inicio-->
     <string name="title_activity_presentation">Bookshop Jimeno</string>
