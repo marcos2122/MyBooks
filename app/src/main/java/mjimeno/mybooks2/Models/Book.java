@@ -40,6 +40,21 @@ public class Book {
          if (bookItem!=null) existe=true;
          return existe;
     }
+    public static boolean existsbook(String position)
+    {
+        boolean existe = false;
+        Book.BookItem bookItem = Book.BookItem.findById(Book.BookItem.class,Long.parseLong(position));
+        if (bookItem!=null) existe=true;
+        return existe;
+
+    }
+
+    public static void borrarLibro(String posicion)
+    {
+        Book.BookItem bookItems = Book.BookItem.findById(Book.BookItem.class, Long.parseLong(posicion));
+        bookItems.delete();
+
+    }
 
 
 

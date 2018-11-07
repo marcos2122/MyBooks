@@ -1,8 +1,11 @@
 package mjimeno.mybooks2.Activities;
 
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -53,11 +56,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.orm.SugarDb;
+import com.orm.SugarRecord;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
+import mjimeno.mybooks2.Constants.AppConstant;
 import mjimeno.mybooks2.Fragments.BookDetailFragment;
 import mjimeno.mybooks2.Fragments.BookListFragment;
 import mjimeno.mybooks2.Fragments.BookListFragmentFirebase;
@@ -174,6 +179,8 @@ public class BookListActivity extends AppCompatActivity
         setContentView(R.layout.activity_book_list);
 
 
+
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
               //  .requestIdToken(getString(R.string.default_web_client_id)) // obtenemos token
                 .requestEmail()
@@ -227,12 +234,16 @@ public class BookListActivity extends AppCompatActivity
 
 
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setItemIconTintList(null);
+        navigationView.setItemIconTintList(null); // para que los iconos del navigation salgan sin sombra de fondo
+
+        recuperarNotificaciones(); // metodo que gestiona las notificaciones
 
         recuperarDatosUsuario(); // metodo que recupera los datos de usuario
 
         SugarDb db = new SugarDb(this);
         db.onCreate(db.getDB()); //crear base de datos
+
+
 
 
         if  (findViewById(R.id.book_detail_container) != null) {
@@ -258,7 +269,45 @@ public class BookListActivity extends AppCompatActivity
                 // .addToBackStack(null)
                 .commit();
 
+
+
+
     }
+
+
+   private void recuperarNotificaciones()
+   {
+       if (getIntent()!=null && getIntent().getAction()!=null)
+       {
+           if (getIntent().getAction().equalsIgnoreCase(AppConstant.DELETE_BOOK_ACTION))
+           {
+               String position = getIntent().getStringExtra("book_position");
+               if (Book.existsbook(position)){ // metodo en la clase book que mira que exista en la lista
+                   Book.borrarLibro(position); // metodo en la clase book que borra el libro
+
+               }else{
+                   Toast.makeText(getApplicationContext(),getResources().getString(R.string.error_book)+" "+position,Toast.LENGTH_SHORT).show();
+               }
+
+
+           }else if (getIntent().getAction().equalsIgnoreCase(AppConstant.SHOW_DETAILS_BOOK)){
+               String position = getIntent().getStringExtra("book_position");
+               int count= Book.ITEMS.size();
+               if (Integer.parseInt(position)<count) {
+                   if (mTwoPane) { //si es una tablet cargamos el fragment en su contenedor correspondiente
+                       cargarFragmento(position);
+                   } else { // si es un movil con la clase intent abrimos la aplicación detalle y añadimos información sobre id al fragment
+                       Intent intent = new Intent(this, BookDetailActivity.class);
+                       intent.putExtra(BookDetailFragment.ARG_ITEM_ID, position);
+                       startActivity(intent);
+                   }
+               }else {Toast.makeText(getApplicationContext(),getResources().getString(R.string.error_book)+" "+position,Toast.LENGTH_SHORT).show();}
+
+
+           }
+       }
+
+   }
 
     private void cargarFragmento(String id)
     {
@@ -467,7 +516,13 @@ public class BookListActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_slideshow:
+              //   Book.BookItem.deleteAll(Book.BookItem.class,"id=?","Maria");
+               // Book.BookItem bookItems = Book.BookItem.findById(Book.BookItem.class,12);
+             //   bookItems.delete();
+
+                //
                // Book.BookItem.deleteAll(Book.BookItem.class);
+
 
                 break;
 

@@ -26,7 +26,7 @@ import static mjimeno.mybooks2.Fragments.BookDetailFragment.ARG_ITEM_ID;
  * in a {@link BookListActivity}.
  */
 public class BookDetailActivity extends AppCompatActivity {
-    private Book.BookItem mItem;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
