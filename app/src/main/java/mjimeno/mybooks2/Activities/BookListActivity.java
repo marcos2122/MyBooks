@@ -1,6 +1,8 @@
 package mjimeno.mybooks2.Activities;
 
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -535,7 +538,7 @@ public class BookListActivity extends AppCompatActivity
                 break;
 
             case  R.id.nav_share:
-                break;
+
 
             case  R.id.nav_send:
                 break;
