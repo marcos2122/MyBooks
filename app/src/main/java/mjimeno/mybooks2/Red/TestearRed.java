@@ -10,7 +10,7 @@ public class TestearRed {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context
                 .CONNECTIVITY_SERVICE);
         NetworkInfo info = connectivityManager.getActiveNetworkInfo();
-        if (info == null || !info.isConnected() || !info.isAvailable()) {
+        if (info == null || !info.isConnectedOrConnecting() || !info.isAvailable()) {
             return false;
         }
         return true;

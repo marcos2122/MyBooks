@@ -4,19 +4,26 @@ import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -25,6 +32,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,6 +63,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -71,8 +80,10 @@ import mjimeno.mybooks2.Fragments.BookListFragment;
 import mjimeno.mybooks2.Fragments.BookListFragmentFirebase;
 import mjimeno.mybooks2.Fragments.BookListFragmentLocal;
 import mjimeno.mybooks2.Fragments.PresentacionFragmentDetalle;
+import mjimeno.mybooks2.Manifest;
 import mjimeno.mybooks2.Models.Book;
 import mjimeno.mybooks2.R;
+import mjimeno.mybooks2.Red.ConnectivityChangeReceiver;
 //import com.google.firebase.auth.AuthUI;
 //import mjimeno.mybooks2.Models.BookItem;
 //import mjimeno.mybooks2.dummy.DummyContent;
@@ -94,6 +105,7 @@ public class BookListActivity extends AppCompatActivity
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth mAuth;
     private GoogleApiClient googleApiClient;
+    private ConnectivityChangeReceiver connectivityChangeReceiver = new ConnectivityChangeReceiver();
 
 
 
@@ -271,6 +283,8 @@ public class BookListActivity extends AppCompatActivity
                 .replace(R.id.book_list_container, BookListFragment.crear())
                 // .addToBackStack(null)
                 .commit();
+        //Log.d("Reinicia","siAplicacion");
+        //Toast.makeText(getApplicationContext(), "Se reinicia",Toast.LENGTH_LONG).show();
 
 
 
@@ -422,6 +436,81 @@ public class BookListActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    private void sendTextAndImageToAnyoneApp()
+    {
+        Uri iconoApp = Uri.parse("android.resource://" + getPackageName()
+                + "/mipmap/" + "ic_launcher3"); // objeto uri con la imagen del icono de la app
+
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND); // action para enviar información
+
+        shareIntent.putExtra(Intent.EXTRA_TEXT,getResources().getString(R.string.texto_descriptivo));// añadimos texto
+        shareIntent.putExtra(Intent.EXTRA_STREAM,iconoApp); // añadimos imagen icono
+
+        shareIntent.setType("image/*");
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        startActivity(Intent.createChooser(shareIntent,getResources().getString(R.string.detalles_app)));
+    }
+
+    private void shareWithWhatsApp()  {
+
+        //Actualmente Es posible enviar imágenes y texto a través de WhatsApp descargando la imagen al dispositivo de almacenamiento externo y
+        // luego compartir la imagen en WhatsApp.
+
+         Uri iconoApp = Uri.parse("android.resource://" + getPackageName()
+                    + "/mipmap/" + "ic_launcher3"); // objeto uri con la imagen del icono de la app
+
+        Bitmap bitmap = null;
+        try { //convertir el uri a bitmap
+            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), iconoApp);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.texto_descriptivo));
+            String path = MediaStore.Images.Media.insertImage(BookListActivity.this.getContentResolver(), bitmap, "", null);
+            //añadimos la imagen al dispositivo
+            Uri uri = Uri.parse(path);
+
+            intent.putExtra(Intent.EXTRA_STREAM, uri);
+            intent.setType("image/*");
+            intent.setPackage("com.whatsapp");
+
+        try {
+            startActivity(intent);
+
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.error_whatsapp),Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    private void copyToClipboard()
+    {
+
+        ClipboardManager clipboardManager = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE); // obtenemos una referencia de la clase clipBoardManager
+        ClipData clipData = ClipData.newPlainText(getResources().getString(R.string.label_texto),getResources().getString(R.string.texto_descriptivo)); //añadimos una etiqueta y el texto al objeto Clipdata
+
+        try{
+            clipboardManager.setPrimaryClip(clipData);// añadimos al portapapeles el clipdata
+            if (clipboardManager.hasPrimaryClip())
+            {
+                ClipData.Item item=clipboardManager.getPrimaryClip().getItemAt(0); // obtenemos el texto del portapapeles para luego mostrarlo
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.alerta)+item.getText().toString(),Toast.LENGTH_LONG).show();
+                //mostramos alerta
+
+            }
+
+        }catch (NullPointerException ex){
+            ex.printStackTrace();
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.error_portapapeles),Toast.LENGTH_LONG).show();
+        }
+
+
+    }
+
 
 
     @Override
@@ -438,16 +527,36 @@ public class BookListActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(connectivityChangeReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(connectivityChangeReceiver,intentFilter);
+
+
+
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
 
         mAuth.addAuthStateListener(mAuthListener);
+
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (mAuthListener!= null)mAuth.removeAuthStateListener(mAuthListener);
+
+       if (mAuthListener!= null)mAuth.removeAuthStateListener(mAuthListener);
     }
 
     @Override
@@ -518,29 +627,23 @@ public class BookListActivity extends AppCompatActivity
 
                 break;
 
-            case R.id.nav_slideshow:
-              //   Book.BookItem.deleteAll(Book.BookItem.class,"id=?","Maria");
-               // Book.BookItem bookItems = Book.BookItem.findById(Book.BookItem.class,12);
-             //   bookItems.delete();
+            case R.id.nav_compartir:
 
-                //
-               // Book.BookItem.deleteAll(Book.BookItem.class);
-
-
+                sendTextAndImageToAnyoneApp();
                 break;
 
-            case R.id.nav_manage:
-               List<Book.BookItem> n = Book.BookItem.listAll((Book.BookItem.class));
-
-               int a = n.size();
-              //  Toast.makeText(getApplicationContext(),String.valueOf(a),Toast.LENGTH_LONG).show();
-
+            case R.id.nav_copiar:
+                copyToClipboard();
                 break;
 
-            case  R.id.nav_share:
+            case  R.id.nav_whatsapp:
 
+                shareWithWhatsApp();
+                break;
 
             case  R.id.nav_send:
+               // String token = FirebaseInstanceId.getInstance().getToken();
+              //  Log.d("TOKEN" ,token);
                 break;
         }
 

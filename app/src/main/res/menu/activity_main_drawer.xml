@@ -13,21 +13,21 @@
             android:icon="@drawable/ic_menu_list_local"
             android:title="@string/listar_libros_bd" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Por Implementar" />
+            android:id="@+id/nav_compartir"
+            android:icon="@drawable/ic_menu_share2"
+            android:title="@string/enviar_informacion" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Por Implementar" />
+            android:id="@+id/nav_copiar"
+            android:icon="@drawable/ic_menu_clipboard"
+            android:title="@string/copiar_portapapeles" />
     </group>
 
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Por Implementar" />
+                android:id="@+id/nav_whatsapp"
+                android:icon="@drawable/ic_menu_whatsapp"
+                android:title="@string/compartir_whatsapp"/>
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"

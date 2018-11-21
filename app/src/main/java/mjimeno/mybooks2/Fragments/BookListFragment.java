@@ -81,13 +81,15 @@ public class BookListFragment extends Fragment implements BookAdapter.OnItemClic
         if (!TestearRed.isNetworkConnected(getContext())) {
             Toast.makeText(getContext(),getResources().getString(R.string.Error_Red),Toast.LENGTH_LONG).show();
             //((BookListActivity) getActivity()).cargarFragmentoBBDD();
+           // Log.d("Reinicia","sinConexionFragment");
             cargarDatosBD_Local();
             refreshLayout.setEnabled(false);
 
         }
         else {
+            //Log.d("Reinicia","ConConexionFragment");
 
-                CargarDatosFirebase(); // cargamos el metodo donde estan todos los oyentes firebase
+            CargarDatosFirebase(); // cargamos el metodo donde estan todos los oyentes firebase
                 refreshLayout.setEnabled(true);
 
             }
