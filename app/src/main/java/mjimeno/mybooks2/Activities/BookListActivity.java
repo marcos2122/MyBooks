@@ -458,8 +458,8 @@ public class BookListActivity extends AppCompatActivity
         //Actualmente Es posible enviar imágenes y texto a través de WhatsApp descargando la imagen al dispositivo de almacenamiento externo y
         // luego compartir la imagen en WhatsApp.
 
-         Uri iconoApp = Uri.parse("android.resource://" + getPackageName()
-                    + "/mipmap/" + "ic_launcher3"); // objeto uri con la imagen del icono de la app
+        Uri iconoApp = Uri.parse("android.resource://" + getPackageName()
+                + "/mipmap/" + "ic_launcher3"); // objeto uri con la imagen del icono de la app
 
         Bitmap bitmap = null;
         try { //convertir el uri a bitmap
@@ -468,23 +468,33 @@ public class BookListActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.texto_descriptivo));
-            String path = MediaStore.Images.Media.insertImage(BookListActivity.this.getContentResolver(), bitmap, "", null);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.texto_descriptivo));
+        try {
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             //añadimos la imagen al dispositivo
+            String path = MediaStore.Images.Media.insertImage(BookListActivity.this.getContentResolver(), bitmap, "", null);
             Uri uri = Uri.parse(path);
-
             intent.putExtra(Intent.EXTRA_STREAM, uri);
             intent.setType("image/*");
             intent.setPackage("com.whatsapp");
+        }
+        catch (SecurityException|NullPointerException ex){
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.error_almacenamiento),Toast.LENGTH_LONG).show();
+            //En Android 6.0+, el usuario debe otorgar el permiso de almacenamiento a la aplicación
+
+        }
+
+
 
         try {
             startActivity(intent);
 
         } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(getApplicationContext(),getResources().getString(R.string.error_whatsapp),Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.error_whatsapp),Toast.LENGTH_LONG).show(); //no esta instalado whatsapp
         }
     }
+
 
 
     private void copyToClipboard()

@@ -83,6 +83,8 @@
     <string name="alerta">Copiado correctamente al portapapeles el siguiente texto:</string>
     <string name="error_whatsapp">Whatsapp no está instalado</string>
     <string name="error_portapapeles">Ocurrió un error al copiar texto al portapapeles</string>
+    <string name="error_almacenamiento">En Android 6.0+, el usuario debe otorgar el permiso de almacenamiento a la aplicación</string>
+
     <string name="SI">SI</string>
     <string name="NO">NO</string>
 
