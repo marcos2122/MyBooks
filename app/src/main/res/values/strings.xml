@@ -78,11 +78,13 @@
     <string name="enviar_informacion">Enviar detalles a otra App.</string>
     <string name="copiar_portapapeles">Copiar Texto al Portapapeles</string>
     <string name="compartir_whatsapp">Compartir con WhastApp</string>
+
     <string name="texto_descriptivo">Aplicación Android sobre libros</string>
     <string name="label_texto">EtiquetaTexto</string>
     <string name="alerta">Copiado correctamente al portapapeles el siguiente texto:</string>
     <string name="error_whatsapp">Whatsapp no está instalado</string>
     <string name="error_portapapeles">Ocurrió un error al copiar texto al portapapeles</string>
+    <string name="error_almacenamiento">En Android 6.0+, el usuario debe otorgar el permiso de almacenamiento a la aplicación</string>
     <string name="SI">SI</string>
     <string name="NO">NO</string>
 
@@ -101,6 +103,8 @@
     <!--fragment detalle -->
 
      <string name="FotoCaption">FotoLibro</string>
+    <string name="compra_correcta">Compra realizada correctamente</string>
+    <string name="compra_faltandatos">No se pudo realizar la compra rellene todos los campos</string>
 
 </resources>
 

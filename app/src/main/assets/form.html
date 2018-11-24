@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+    <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <style>
+
+
+                .redondeado {
+                    border-radius: 5px;
+                    border: 1px solid #39c;
+                    width: 300px;
+                    height: 26px;
+                    padding: 5px;
+                }
+                .boton{
+                    background-color: #dfe;
+                    border-radius: 5px;
+                    display:block;
+                    margin-left:auto;
+                    margin-right:auto;
+                    text-align=center;
+                    width: 160px;
+                    height: 36px;
+                    border: 1px solid;
+                    font-size: 15px;
+
+                }
+                select{
+                    width: 310px;
+                    height: 38px;
+                    border-radius: 5px;
+                    border: 1px solid #39c;
+                }
+            </style>
+
+        </head>
+  <body>
+    <form method="get">
+      <h2> Datos bancarios para realizar la compra: </h2>
+        <input class="redondeado" type="text" placeholder="Titular de la targeta" name="name" autofocus/>
+        <br><br>
+      <input class="redondeado" type="number" placeholder="Número Targeta" name="num"/>
+        <br><br>
+        <label for="fecha">Fecha Caducidad</label>
+        <br>
+      <input class="redondeado" type="month" id ="fecha" name="date"/>
+       <br><br>
+        <label for="tipo">Tipo de Targeta</label>
+        <br>
+        <select name="visa" id="tipo">
+            <option value="visa">Visa</option>
+            <option value="mastercard">Mastercard</option>
+            <option value="american">American Express</option>
+        </select>
+        <br><br>
+      <input type="submit" class="boton" name="buy"/>
+    </form>
+  </body>
+</html>
+

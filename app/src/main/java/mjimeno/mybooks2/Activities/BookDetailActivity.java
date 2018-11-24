@@ -1,15 +1,23 @@
 package mjimeno.mybooks2.Activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import mjimeno.mybooks2.Fragments.BookDetailFragment;
 import mjimeno.mybooks2.Models.Book;
@@ -26,7 +34,7 @@ import static mjimeno.mybooks2.Fragments.BookDetailFragment.ARG_ITEM_ID;
  * in a {@link BookListActivity}.
  */
 public class BookDetailActivity extends AppCompatActivity {
-
+private WebView myWebview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +42,22 @@ public class BookDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_book_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
+        /*
+        myWebview = (WebView)findViewById(R.id.myWebView);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                myWebview.setVisibility(View.VISIBLE);
+                myWebview.getSettings().setJavaScriptEnabled(true);
+                myWebview.loadUrl("file:///android_asset/form.html");
+                myWebview.setWebViewClient(new MyWebClient());
             }
         });
 
+*/
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -87,5 +101,29 @@ public class BookDetailActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private class MyWebClient extends WebViewClient{
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+
+            Uri uri = Uri.parse(request.getUrl().toString());
+            String name = uri.getQueryParameter("name");
+            String num = uri.getQueryParameter("num");
+            String date = uri.getQueryParameter("date");
+
+            if (!name.isEmpty() && !num.isEmpty() && !date.isEmpty())
+            {
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.compra_correcta),Toast.LENGTH_LONG).show();
+                myWebview.setVisibility(View.GONE);
+            }
+            else{
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.compra_faltandatos),Toast.LENGTH_LONG).show();
+
+            }
+
+            return  false;
+        }
     }
 }

@@ -470,19 +470,28 @@ public class BookListActivity extends AppCompatActivity
 
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.texto_descriptivo));
-            String path = MediaStore.Images.Media.insertImage(BookListActivity.this.getContentResolver(), bitmap, "", null);
-            //añadimos la imagen al dispositivo
-            Uri uri = Uri.parse(path);
+            try {
+                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                //añadimos la imagen al dispositivo
+                String path = MediaStore.Images.Media.insertImage(BookListActivity.this.getContentResolver(), bitmap, "", null);
+                Uri uri = Uri.parse(path);
+                intent.putExtra(Intent.EXTRA_STREAM, uri);
+                intent.setType("image/*");
+                intent.setPackage("com.whatsapp");
+            }
+            catch (SecurityException|NullPointerException ex){
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.error_almacenamiento),Toast.LENGTH_LONG).show();
+                //En Android 6.0+, el usuario debe otorgar el permiso de almacenamiento a la aplicación
 
-            intent.putExtra(Intent.EXTRA_STREAM, uri);
-            intent.setType("image/*");
-            intent.setPackage("com.whatsapp");
+            }
+
+
 
         try {
             startActivity(intent);
 
         } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(getApplicationContext(),getResources().getString(R.string.error_whatsapp),Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.error_whatsapp),Toast.LENGTH_LONG).show(); //no esta instalado whatsapp
         }
     }
 
