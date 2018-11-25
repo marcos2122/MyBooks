@@ -34,7 +34,7 @@ import static mjimeno.mybooks2.Fragments.BookDetailFragment.ARG_ITEM_ID;
  * in a {@link BookListActivity}.
  */
 public class BookDetailActivity extends AppCompatActivity {
-private WebView myWebview;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,22 +42,7 @@ private WebView myWebview;
         setContentView(R.layout.activity_book_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
-        /*
-        myWebview = (WebView)findViewById(R.id.myWebView);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                myWebview.setVisibility(View.VISIBLE);
-                myWebview.getSettings().setJavaScriptEnabled(true);
-                myWebview.loadUrl("file:///android_asset/form.html");
-                myWebview.setWebViewClient(new MyWebClient());
-            }
-        });
-
-*/
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -103,27 +88,6 @@ private WebView myWebview;
         return super.onOptionsItemSelected(item);
     }
 
-    private class MyWebClient extends WebViewClient{
 
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
 
-            Uri uri = Uri.parse(request.getUrl().toString());
-            String name = uri.getQueryParameter("name");
-            String num = uri.getQueryParameter("num");
-            String date = uri.getQueryParameter("date");
-
-            if (!name.isEmpty() && !num.isEmpty() && !date.isEmpty())
-            {
-                Toast.makeText(getApplicationContext(),getResources().getString(R.string.compra_correcta),Toast.LENGTH_LONG).show();
-                myWebview.setVisibility(View.GONE);
-            }
-            else{
-                Toast.makeText(getApplicationContext(),getResources().getString(R.string.compra_faltandatos),Toast.LENGTH_LONG).show();
-
-            }
-
-            return  false;
-        }
-    }
 }
