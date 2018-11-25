@@ -137,7 +137,7 @@ public class BookDetailFragment extends Fragment {
             Log.i("URL",request.getUrl().toString());
 
             Uri uri = Uri.parse(request.getUrl().toString());
-            //Obte
+            //Obtenemos los valores de las parametros de la url
             String name = uri.getQueryParameter("name");
             String num = uri.getQueryParameter("num");
             String date = uri.getQueryParameter("date");
