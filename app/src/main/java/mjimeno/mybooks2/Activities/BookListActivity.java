@@ -12,11 +12,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,6 +27,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
@@ -70,8 +73,11 @@ import com.google.firebase.storage.UploadTask;
 import com.orm.SugarDb;
 import com.orm.SugarRecord;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 import mjimeno.mybooks2.Constants.AppConstant;
@@ -106,6 +112,7 @@ public class BookListActivity extends AppCompatActivity
     private FirebaseAuth mAuth;
     private GoogleApiClient googleApiClient;
     private ConnectivityChangeReceiver connectivityChangeReceiver = new ConnectivityChangeReceiver();
+    private String ic_icon;
 
 
 
@@ -436,6 +443,64 @@ public class BookListActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    private String createImageOnSDCard(int resID)
+    {
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),resID);
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)+"/"+resID+".png";
+        File file = new File(path);
+        try {
+            OutputStream outputStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG,100,outputStream);
+            outputStream.flush();
+            outputStream.close();
+        }catch (Exception ex){
+            ex.printStackTrace();
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.error_almacenamiento),Toast.LENGTH_LONG).show();
+        }
+        return file.getPath();
+
+    }
+    private void onShareTextAndIconFileProvider()
+    {
+        ic_icon = createImageOnSDCard(R.mipmap.ic_launcher3);
+        Uri path = FileProvider.getUriForFile(this,"mjimeno.mybooks2",new File(ic_icon));
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT,getResources().getString(R.string.texto_descriptivo));
+        shareIntent.putExtra(Intent.EXTRA_STREAM,path);
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        shareIntent.setType("image/*");
+       // shareIntent.setPackage("com.whatsapp");
+      //  startActivity(shareIntent);
+        startActivity(Intent.createChooser(shareIntent,getResources().getString(R.string.detalles_app)));
+
+    }
+
+    private void onShareTextAndIconWhatsappFileProvider()
+    {
+        ic_icon = createImageOnSDCard(R.mipmap.ic_launcher3);
+        Uri path = FileProvider.getUriForFile(this,"mjimeno.mybooks2",new File(ic_icon));
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT,getResources().getString(R.string.texto_descriptivo));
+        shareIntent.putExtra(Intent.EXTRA_STREAM,path);
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        shareIntent.setType("image/*");
+        shareIntent.setPackage("com.whatsapp");
+
+        try {
+            startActivity(shareIntent);
+
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.error_whatsapp),Toast.LENGTH_LONG).show(); //no esta instalado whatsapp
+        }
+
+    }
+
+
+
+
     private void sendTextAndImageToAnyoneApp()
     {
         Uri iconoApp = Uri.parse("android.resource://" + getPackageName()
@@ -637,8 +702,8 @@ public class BookListActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_compartir:
-
-                sendTextAndImageToAnyoneApp();
+                onShareTextAndIconFileProvider();
+              //  sendTextAndImageToAnyoneApp();
                 break;
 
             case R.id.nav_copiar:
@@ -646,8 +711,8 @@ public class BookListActivity extends AppCompatActivity
                 break;
 
             case  R.id.nav_whatsapp:
-
-                shareWithWhatsApp();
+                onShareTextAndIconWhatsappFileProvider();
+              //  shareWithWhatsApp();
                 break;
 
             case  R.id.nav_send:
