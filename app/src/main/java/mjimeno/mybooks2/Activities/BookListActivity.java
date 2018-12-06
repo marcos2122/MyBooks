@@ -471,6 +471,7 @@ public class BookListActivity extends AppCompatActivity
         shareIntent.putExtra(Intent.EXTRA_STREAM,path);
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         shareIntent.setType("image/*");
+
        // shareIntent.setPackage("com.whatsapp");
       //  startActivity(shareIntent);
         startActivity(Intent.createChooser(shareIntent,getResources().getString(R.string.detalles_app)));
@@ -488,6 +489,7 @@ public class BookListActivity extends AppCompatActivity
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         shareIntent.setType("image/*");
         shareIntent.setPackage("com.whatsapp");
+       // shareIntent.setPackage("com.facebook.katana");
 
         try {
             startActivity(shareIntent);
@@ -703,7 +705,7 @@ public class BookListActivity extends AppCompatActivity
 
             case R.id.nav_compartir:
                 onShareTextAndIconFileProvider();
-              //  sendTextAndImageToAnyoneApp();
+                //sendTextAndImageToAnyoneApp();
                 break;
 
             case R.id.nav_copiar:
